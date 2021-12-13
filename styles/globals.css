@@ -2,8 +2,14 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--color-bg-1);
+  color: var(--color-text-1);
+}
+
+@font-face {
+  font-family: "Fira Code";
+  src: url("https://cdn.rawgit.com/dunovank/jupyter-themes/1e851888/jupyterthemes/fonts/monospace/firacode/firacode.otf")
+    format("opentype");
 }
 
 a {
@@ -13,4 +19,84 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.code,
+code {
+  font-family: "Fira Code", monospace, sans-serif !important;
+}
+
+.layout {
+  width: 100vw;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.layout .header {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.header .logo {
+  width: 48px;
+  height: 48px;
+  margin-left: 2rem;
+  margin-right: auto;
+}
+
+.header span {
+  margin: 4px 1rem;
+  padding-bottom: 3px;
+}
+.header .active {
+  border-bottom: 2px solid orange;
+  transition: all 0.3 ease-in-out;
+}
+
+.right-aside {
+  width: 48px;
+  height: 48px;
+  position: fixed;
+  right: -24px;
+  top: 48%;
+  border-radius: 50%;
+  background-color: #eee;
+  transition: all 0.4s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+}
+.right-aside:hover {
+  right: 8px;
+}
+
+.right-aside .theme-icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.4;
+  text-align: center;
+  font-size: 2rem;
+  z-index: 9;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.right-aside .theme-icon:hover {
+  opacity: 1;
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  body {
+    font-size: 13px;
+  }
 }
