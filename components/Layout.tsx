@@ -1,16 +1,17 @@
 import type { NextPage } from "next";
 import HeaderNavs from "./HeaderNavs";
 import CustomAside from "./CustomAside";
+import Logo from "./Logo";
 
 const Layout: NextPage = ({ children }) => {
   
   return (
     <div className="layout">
       <div className="header">
-        <img className="logo" src="/favicon.svg" />
+        <Logo />
         <HeaderNavs />
       </div>
-      <main>{children}</main>
+      <main className="main">{children}</main>
       <CustomAside />
     </div>
   );

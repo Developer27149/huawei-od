@@ -7,7 +7,7 @@ export default function CustomAside() {
   const { reverseTheme,isDark } = useCustomTheme();
 
   return (
-    <div className="right-aside">
+    <div className="left-aside">
       <MotionBox
       style={{
         width: 42,
