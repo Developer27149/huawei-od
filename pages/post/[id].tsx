@@ -1,11 +1,9 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
 import Markdown from "markdown-to-jsx";
 import { getAllArticleIdArr, getArticleById } from "../../libs/help";
 import { IArticleData } from "../../interfaces";
 import { useEffect } from "react";
 import Code from "../../components/Code";
-
+import sd from '../../styles/Article.module.sass'
 interface IProps {
   articleData: IArticleData;
 }
@@ -18,14 +16,13 @@ type Params = {
 
 const Post = (props: IProps) => {
   const {
-    articleData: { title, language, tags, content },
+    articleData: { title, tags, content },
   } = props;
   // useEffect(hljs.highlightAll, [])
   useEffect(() => {}, []);
   return (
-    <>
+    <div className={sd.atricle}>
       <h1>Post: {title}</h1>
-      <h5>{language}</h5>
       <ul>{tags && tags.map((tag) => <span key={tag}>{tag}</span>)}</ul>
       <Markdown
         options={{
@@ -38,7 +35,7 @@ const Post = (props: IProps) => {
       >
         {content}
       </Markdown>
-    </>
+    </div>
   );
 };
 

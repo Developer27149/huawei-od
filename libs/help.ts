@@ -26,6 +26,5 @@ export async function getArticleById(id: string): Promise<IArticleData> {
     content,
     title,
     tags,
-    language,
   };
 }

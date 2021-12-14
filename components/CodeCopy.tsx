@@ -11,34 +11,14 @@ export default function CodeCopy(props: IProps) {
   const handleCopyAction = async () => {
     const { success } = await copyText(props.text);
     setIsCopy(success);
+    setTimeout(() => {
+      setIsCopy(false);
+    }, 2000);
   };
   return (
     <div className={isCopy ? sd.ok : sd.normal}>
       {isCopy ? (
-        <MotionBox
-          animate={{
-            opacity: 1,
-          }}
-          style={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 0.8,
-          }}
-        >
-          <svg
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-          >
-            <path
-              d="M4.9 8.7l-.3-.4-.8.6.3.4.8-.6zm6 .6l.3-.4-.8-.6-.3.4.8.6zM7.5 14A6.5 6.5 0 011 7.5H0A7.5 7.5 0 007.5 15v-1zM14 7.5A6.5 6.5 0 017.5 14v1A7.5 7.5 0 0015 7.5h-1zM7.5 1A6.5 6.5 0 0114 7.5h1A7.5 7.5 0 007.5 0v1zm0-1A7.5 7.5 0 000 7.5h1A6.5 6.5 0 017.5 1V0zM4 6h1V5H4v1zm6 0h1V5h-1v1zm.1 2.7a3.25 3.25 0 01-5.2 0l-.8.6c1.7 2.267 5.1 2.267 6.8 0l-.8-.6z"
-              fill="currentColor"
-            ></path>
-          </svg>
-        </MotionBox>
+        <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M5 7.5l2 2 3.5-4m0-5h-8a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1v-10l-3-3z" stroke="currentColor"></path></svg>
       ) : (
         <MotionBox
           animate={{
@@ -49,6 +29,10 @@ export default function CodeCopy(props: IProps) {
           }}
           transition={{
             duration: 0.8,
+          }}
+          whileHover={{
+            scale: 1.2,
+            color: "tomato"
           }}
           onClick={handleCopyAction}
         >

@@ -111,11 +111,17 @@ code {
 @media screen and (max-width: 800px) {
   body {
     font-size: 12px;
-  }
+  }  
 }
 
 @media screen and (max-width: 1200px) {
   body {
     font-size: 13px;
+  }
+  .layout {
+    padding: 3rem;
+  }
+  p {
+    padding: 0.3rem 0;
   }
 }
