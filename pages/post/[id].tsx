@@ -1,57 +1,58 @@
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import Markdown from "markdown-to-jsx"
-import { getAllArticleIdArr, getArticleById } from '../../libs/help'
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Markdown from "markdown-to-jsx";
+import { getAllArticleIdArr, getArticleById } from "../../libs/help";
 import { IArticleData } from "../../interfaces";
-import 'highlight.js/styles/Shades-of-purple.css'
-import {useEffect} from 'react';
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
+import { useEffect } from "react";
+import Code from "../../components/Code";
 
 interface IProps {
-  articleData: IArticleData
+  articleData: IArticleData;
 }
 
 type Params = {
   params: {
-    id: string
-  }
-}
+    id: string;
+  };
+};
 
 const Post = (props: IProps) => {
-  const {articleData: {
-    title, language, tags, content
-  }} = props;
+  const {
+    articleData: { title, language, tags, content },
+  } = props;
   // useEffect(hljs.highlightAll, [])
-  useEffect(() => {
-    hljs.registerLanguage('javascript', javascript);
-    hljs.registerLanguage('js', javascript);
-  }, [])
+  useEffect(() => {}, []);
   return (
     <>
       <h1>Post: {title}</h1>
       <h5>{language}</h5>
-      <ul>
-        {
-          tags && tags.map(tag => (<span key={tag}>{tag}</span>))
-        }
-      </ul>
-      <Markdown options={{  }}>{content}</Markdown>
+      <ul>{tags && tags.map((tag) => <span key={tag}>{tag}</span>)}</ul>
+      <Markdown
+        options={{
+          overrides: {
+            pre: {
+              component: Code,              
+            },
+          },
+        }}
+      >
+        {content}
+      </Markdown>
     </>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;
 
-export async function getStaticProps({ params }: Params) {  
-  const articleData = await getArticleById(params.id)
+export async function getStaticProps({ params }: Params) {
+  const articleData = await getArticleById(params.id);
   console.log(articleData);
-  
+
   return {
     props: {
-      articleData
+      articleData,
     },
-  }
+  };
 }
 
 // This function gets called at build time on server-side.
@@ -60,13 +61,13 @@ export async function getStaticProps({ params }: Params) {
 export async function getStaticPaths() {
   const ids: string[] = await getAllArticleIdArr();
   // // Get the paths we want to pre-render based on posts
-  const paths = ids.map(id => {
+  const paths = ids.map((id) => {
     return {
-      params: {id}
-    }
-  })
+      params: { id },
+    };
+  });
   // We'll pre-render only these paths at build time.
   // { fallback: blocking } will server-render pages
   // on-demand if the path doesn't exist.
-  return { paths, fallback: false }
+  return { paths, fallback: false };
 }
