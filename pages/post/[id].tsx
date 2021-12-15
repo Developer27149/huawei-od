@@ -1,11 +1,22 @@
 import Markdown from "markdown-to-jsx";
-import { getAllArticleIdArr, getArticleById } from "../../libs/help";
-import { IArticleData } from "../../interfaces";
-import { useEffect } from "react";
-import Code from "../../components/Code";
-import sd from '../../styles/Article.module.sass'
+import { getAllArticleIdArr, getArticleById } from "libs/help";
+import { IArticleData } from "interfaces";
+import { useEffect, useState } from "react";
+import Code from "components/Code";
+import sd from "styles/Article.module.sass";
+import { convertTextToValidId } from "libs";
+import dynamic from 'next/dynamic'
+// components/MyChart.js contains the recharts chart
+const ArticleNav = dynamic(
+    () => import('components/ArticleComponent/ArticleNav'),
+    { ssr: false }
+  )
+
 interface IProps {
   articleData: IArticleData;
+}
+interface IRecord {
+  [key:string]: number,
 }
 
 type Params = {
@@ -14,12 +25,14 @@ type Params = {
   };
 };
 
+
+
 const Post = (props: IProps) => {
   const {
-    articleData: { title, tags, content },
+    articleData: { title, tags, content, navArr },
   } = props;
-  // useEffect(hljs.highlightAll, [])
-  useEffect(() => {}, []);
+  
+
   return (
     <div className={sd.atricle}>
       <h1>Post: {title}</h1>
@@ -28,13 +41,15 @@ const Post = (props: IProps) => {
         options={{
           overrides: {
             pre: {
-              component: Code,              
+              component: Code,
             },
           },
+          slugify: convertTextToValidId,
         }}
       >
         {content}
       </Markdown>
+      <ArticleNav navArr={navArr} />
     </div>
   );
 };
@@ -43,8 +58,6 @@ export default Post;
 
 export async function getStaticProps({ params }: Params) {
   const articleData = await getArticleById(params.id);
-  console.log(articleData);
-
   return {
     props: {
       articleData,

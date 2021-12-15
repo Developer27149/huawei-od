@@ -4,6 +4,7 @@ body {
   margin: 0;
   background-color: var(--color-bg-1);
   color: var(--color-text-1);
+  scroll-behavior:smooth;
 }
 
 @font-face {
@@ -30,7 +31,7 @@ code {
   /* width: 100vw; */
   max-width: 1560px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0 1rem 0.5rem 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -38,8 +39,10 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  top: 0;
   height: 6vh;
+  background-color: var(--color-bg-1);
 }
 
 .layout .main {
@@ -120,6 +123,7 @@ code {
   }
   .layout {
     padding: 3rem;
+    padding-top: 1rem;
   }
   p {
     padding: 0.3rem 0;

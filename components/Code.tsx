@@ -1,6 +1,6 @@
 import React, { useState, ReactChildren, useEffect } from "react";
 import MotionBox from "./MotionBox";
-import sd from "../styles/Code.module.sass";
+import sd from "styles/Code.module.sass";
 import CodeCopy from "./CodeCopy";
 import hljs from "highlight.js";
 import "highlight.js/styles/Shades-of-purple.css";

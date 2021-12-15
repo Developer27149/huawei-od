@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MotionBox from "./MotionBox";
-import { copyText } from "../libs/copy";
-import sd from "../styles/CopyCode.module.sass";
+import { copyText } from "libs/copy";
+import sd from "styles/CopyCode.module.sass";
 
 interface IProps {
   text: string;

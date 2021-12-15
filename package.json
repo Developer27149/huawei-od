@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@arco-design/web-react": "^2.26.2",
+    "classnames": "^2.3.1",
     "framer-motion": "^5.4.5",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.3.1",
