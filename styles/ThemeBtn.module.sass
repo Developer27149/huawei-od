@@ -1,0 +1,27 @@
+@import include-media
+.container
+  border-radius: 50%
+  background-color: #eee
+  transition: all 0.4s ease-in-out
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+
+  &:hover
+    left: 8px
+
+
+  & .icon
+    position: absolute
+    width: 15px
+    height: 15px
+    opacity: 0.4
+    z-index: 9
+    color: tomato
+    transition: opacity 0.3s ease-in-out
+
+
+  & .icon:hover
+    opacity: 1
+

@@ -1,18 +1,19 @@
-.container
-  position: fixed
-  left: 0
-  top: 30%
-  min-width: 10rem
-  max-width: 18rem
-  min-height: 800px
+@import include-media
+
+.container  
   font-size: 0.7rem
-  padding: 8px
-  .navbar
+  position: relative
+  width: 300px
+  .navbar    
+    position: fixed
+    top: 30%
     background-color: var(--color-bg-1)
     color: var(--color-text-1)
     border-radius: 12px
     padding: 18px
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px
+    box-shadow: #9a9abfa8 0px 1px 4px
+    @include media("<=1200px")
+      display: none
 
   .section
     margin: 10px auto

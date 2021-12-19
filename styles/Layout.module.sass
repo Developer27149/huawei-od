@@ -1,0 +1,31 @@
+@import include-media
+
+.layout
+  /* width: 100vw; */
+  max-width: 1560px
+  margin: 0 auto
+  padding: 0 1rem 0.5rem 1rem
+  display: flex
+  flex-direction: column
+
+  & .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    position: sticky
+    top: 0
+    background-color: var(--color-bg-1)
+
+  & .main
+    flex-grow: 1
+    min-height: 88vh
+
+
+.header span
+  margin: 4px 0.5rem
+  padding-bottom: 3px
+  cursor: pointer
+
+  &:hover
+    color: tomato
+

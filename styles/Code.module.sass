@@ -1,4 +1,9 @@
+@import include-media
+
 .container
+  @include media("<=phone")
+    padding: 0
+    border-radius: 0
   display: flex
   flex-direction: column
   align-items: stretch
@@ -12,6 +17,8 @@
     justify-content: space-between
     align-items: center
     color: #fff
+    @include media("<=phone")
+      padding: 0.5rem     
     &>span
       cursor: pointer
     .copy
@@ -22,6 +29,11 @@
     .code
       margin: 0!important
       flex-grow: 1
+      .code
+      code
+        font-family: "Fira Code",-apple-system, BlinkMacSystemFont, sans-serif!important
+        @include media("<=phone")
+          padding-left: 0.2rem!important
       
     .line_num
       user-select: none
@@ -37,3 +49,8 @@
         padding-right: 6px
         z-index: 2
         box-shadow: 2px 0 purple
+
+.summary
+  margin: 12px
+  color: var(--color-text-1)
+  font-size: 1.1rem

@@ -1,0 +1,27 @@
+@function breakpointer($size)
+  @if $size == 'sm'
+    @return '(max-width:480px)'
+  @else if $size == 'md'
+    @return '(min-width:480px) and (max-width:1200px)'
+  @else if $size == 'lg'
+    @return '(min-width:1201px)'
+
+@mixin query($classname, $size: 'md')
+  #{$classname}
+    @media screen and #{breakpointer($size)}
+      @content
+
+@mixin lg($name)
+  #{$name}
+    @media screen and #{breakpointer('lg')}
+      @content
+
+@mixin md($name)
+  #{$name}
+    @media screen and #{breakpointer('md')}
+      @content        
+
+@mixin sm($name)
+  #{$name}
+    @media screen and #{breakpointer('sm')}
+      @content

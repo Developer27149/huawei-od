@@ -1743,6 +1743,11 @@ imurmurhash@^0.1.4:
   resolved "https://registry.npm.taobao.org/imurmurhash/download/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha1-khi5srkoojixPcT7a21XbyMUU+o=
 
+include-media@^1.4.10:
+  version "1.4.10"
+  resolved "https://registry.npmmirror.com/include-media/download/include-media-1.4.10.tgz#7a311c92c396c808504ec6a5365115d30571f259"
+  integrity sha1-ejEcksOWyAhQTsalNlEV0wVx8lk=
+
 inflight@^1.0.4:
   version "1.0.6"
   resolved "https://registry.npm.taobao.org/inflight/download/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"

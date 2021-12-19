@@ -1,22 +1,19 @@
 import Markdown from "markdown-to-jsx";
 import { getAllArticleIdArr, getArticleById } from "libs/help";
 import { IArticleData } from "interfaces";
-import { useEffect, useState } from "react";
 import Code from "components/Code";
 import sd from "styles/Article.module.sass";
 import { convertTextToValidId } from "libs";
-import dynamic from 'next/dynamic'
-// components/MyChart.js contains the recharts chart
-const ArticleNav = dynamic(
-    () => import('components/ArticleComponent/ArticleNav'),
-    { ssr: false }
-  )
+import ArticleNav from "components/ArticleComponent/ArticleNav";
+import Menu from "components/Menu";
+import ThemeBtn from "components/Menu/ThemeBtn";
+import ArticleNavBtn from 'components/Menu/ArticleNavBtn';
 
 interface IProps {
   articleData: IArticleData;
 }
 interface IRecord {
-  [key:string]: number,
+  [key: string]: number;
 }
 
 type Params = {
@@ -25,19 +22,24 @@ type Params = {
   };
 };
 
-
-
 const Post = (props: IProps) => {
   const {
     articleData: { title, tags, content, navArr },
   } = props;
-  
 
   return (
     <div className={sd.atricle}>
       <h1>Post: {title}</h1>
       <ul>{tags && tags.map((tag) => <span key={tag}>{tag}</span>)}</ul>
+      <ArticleNav navArr={navArr} />
+      <Menu>
+        <>
+          <ThemeBtn />
+          <ArticleNavBtn />
+        </>
+      </Menu>
       <Markdown
+        className={sd.content}
         options={{
           overrides: {
             pre: {
@@ -49,7 +51,6 @@ const Post = (props: IProps) => {
       >
         {content}
       </Markdown>
-      <ArticleNav navArr={navArr} />
     </div>
   );
 };

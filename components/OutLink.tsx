@@ -1,5 +1,7 @@
 import React, { ReactChild } from "react";
 import MotionBox from "./MotionBox";
+import sd from 'styles/Outlink.module.sass'
+
 interface IProps {
   href: string;
   children: ReactChild;
@@ -7,7 +9,7 @@ interface IProps {
 export default function OutLink(props: IProps) {
   return (
     <MotionBox
-      className="outlink"
+      className={sd.outlink}
       whileHover={{
         scale: 1.3,       
       }}

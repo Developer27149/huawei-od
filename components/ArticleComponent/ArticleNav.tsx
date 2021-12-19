@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { INavbar } from "interfaces";
 import sd from "styles/ArticleBar.module.sass";
 import MotionBox from "../MotionBox";
-import cns from 'classnames'
-import { scrollToElemById } from 'libs/scrollToElem';
+import cns from "classnames";
+import { scrollToElemById } from "libs/scrollToElem";
 
 interface IProps {
   navArr: INavbar[];
@@ -15,35 +15,60 @@ export default function ArticleNav(props: IProps) {
   const { navArr } = props;
 
   useEffect(() => {
-    if(localStorage.article_bar) {
-      setShowNavbar(true)
+    if (localStorage.article_bar) {
+      setShowNavbar(true);
     }
     // init scroll event handle
     let scrollTimer: any;
     document.addEventListener("scroll", () => {
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
-        
+        const ids = navArr.map((i) => i.targetId);
+        if (ids.length > 0) {
+          const headingElems = ids
+            .map((id) => {
+              return {
+                elem: document.querySelector("#" + id) as HTMLElement,
+                id,
+              };
+            })
+            .filter((i) => i.elem !== null);
+          headingElems.sort((a, b) => {
+            var { x, y } = a.elem.getBoundingClientRect();
+            const _aDistance = Math.sqrt(x ** 2 + (y - 100) ** 2);
+            var { x, y } = b.elem.getBoundingClientRect();
+            const _bDistance = Math.sqrt(x ** 2 + (y - 100) ** 2);
+            return _aDistance - _bDistance;
+          });
+          headingElems.forEach((h, idx) => {
+            h.elem.style.color = idx === 0 ? "#4080FF" : "var(--color-text-1)";
+          });
+        }
       }, 300);
     });
-  }, [])
+  }, []);
 
   return (
     <div className={sd.container}>
       {showNavbar ? (
         <MotionBox className={sd.navbar}>
-          <Divider orientation="center">
-            目录
-          </Divider>          
-          {
-            navArr.length > 0 && navArr.map((nav, idx) => {
+          <Divider orientation="center">目录</Divider>
+          {navArr.length > 0 &&
+            navArr.map((nav, idx) => {
               return (
-                <section key={idx} className={cns(sd[`h${nav.level}`], sd.section)}>
-                  <a href="#" onClick={(e) => scrollToElemById(e, nav.targetId)}>{nav.text}</a>
+                <section
+                  key={idx}
+                  className={cns(sd[`h${nav.level}`], sd.section)}
+                >
+                  <a
+                    href="#"
+                    onClick={(e) => scrollToElemById(e, nav.targetId)}
+                  >
+                    {nav.text}
+                  </a>
                 </section>
-              )
-            })
-          }
+              );
+            })}
         </MotionBox>
       ) : (
         <MotionBox
@@ -52,10 +77,10 @@ export default function ArticleNav(props: IProps) {
           }}
           style={{
             opacity: 0,
-            cursor: "pointer"
+            cursor: "pointer",
           }}
           transition={{
-            duration: 0.6
+            duration: 0.6,
           }}
         >
           <svg

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import { setDarkMode } from "libs";
 
 export const useCustomTheme = () => {
@@ -13,8 +13,9 @@ export const useCustomTheme = () => {
     setDarkMode(isDark);
   }, [isDark]);
 
-  const reverseTheme = () => {
+  const reverseTheme = (e: React.MouseEvent<HTMLElement>) => {
     setIsDark(!isDark);
+    e.stopPropagation();
   };
   return { isDark, reverseTheme };
 };

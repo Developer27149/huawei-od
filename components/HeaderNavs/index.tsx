@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import MotionBox from "../MotionBox";
 import OutLink from "../OutLink";
+import sd from 'styles/HeaderNav.module.sass'
 
 export default function HeaderNavs() {
   const [activeId, setActiveId] = useState(3);
@@ -42,7 +43,7 @@ export default function HeaderNavs() {
         delay: 0,
       }}
     >
-      <span className={activeId === 0 ? "active" : ""}>
+      <span className={activeId === 0 ? sd.active : ""}>
         <Link href="/">
           <svg
             viewBox="0 0 15 15"
@@ -58,7 +59,7 @@ export default function HeaderNavs() {
           </svg>
         </Link>
       </span>
-      <span className={activeId === 1 ? "active" : ""}>
+      <span className={activeId === 1 ? sd.active : ""}>
         <Link href="/about">
           <svg
             viewBox="0 0 15 15"
