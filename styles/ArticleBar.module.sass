@@ -6,14 +6,27 @@
   width: 300px
   .navbar    
     position: fixed
-    top: 30%
+    top: 50%
     background-color: var(--color-bg-1)
     color: var(--color-text-1)
     border-radius: 12px
-    padding: 18px
+    padding: 1rem 3rem
+    transform: translate(-50%, -50%)
     box-shadow: #9a9abfa8 0px 1px 4px
     @include media("<=1200px")
-      display: none
+      left: 50%
+    .close
+      cursor: pointer
+      opacity: 0.5
+      color: #9a9abfa8
+      position: absolute
+      left: 1rem
+      top: 1rem
+      transform: all 0.4s ease-in-out
+      &:hover
+        opacity: 1
+        transition: scale(1.2)
+
 
   .section
     margin: 10px auto

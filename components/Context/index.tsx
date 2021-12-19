@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { ReactChild } from "react";
+import { setDarkMode } from "libs";
 
 interface IShareState {
   darkTheme?: boolean;
@@ -9,38 +10,15 @@ interface IShareState {
 
 const shareState: IShareState = {};
 
-export const reducer = (
-  state: IShareState,
-  action: {
-    type: string;
-    upload?: IShareState;
-  }
-) => {
-  switch (action.type) {
-    case "theme":
-      localStorage.dark = String(!state.darkTheme);
-      return { ...state, darkTheme: !state.darkTheme };
-    case "article":
-      localStorage.showArticleNav = String(!state.showArticleNav);
-      return { ...state, showArticleNav: !state.showArticleNav };
-    case "comment":
-      localStorage.showComment = String(!state.showComment);
-      return { ...state, showComment: !state.showComment };
-    case "init":
-      const {
-        darkTheme = "false",
-        showArticleNav = "true",
-        showComment = "true",
-      } = action?.upload || shareState;
-
-      localStorage.darkTheme = darkTheme;
-      localStorage.showArticleNav = showArticleNav;
-      localStorage.showComment = showComment;
-      return { ...state, ...action.upload };
-    default:
-      console.error("无效的 dispatch");
-      return state;
-  }
+export const reducer = (state: IShareState, payload: IShareState) => {
+  Object.keys(payload).forEach((i: any) => {
+    localStorage[i] = String(payload[i]);
+  });
+  setDarkMode(payload?.darkTheme ?? false);
+  return {
+    ...state,
+    ...payload,
+  };
 };
 
 const AppContext = createContext(shareState);
@@ -48,13 +26,11 @@ const AppContext = createContext(shareState);
 export function AppWrapper(props: { children: ReactChild }) {
   const [state, dispatch] = useReducer(reducer, shareState);
   useEffect(() => {
+    const {darkTheme = false, showArticleNav = true, showComment = true} = localStorage;
     dispatch({
-      type: "init",
-      upload: {
-        darkTheme: localStorage.darkTheme ?? 'false',
-        showArticleNav: localStorage.showArticleNav ?? 'true',
-        showComment: localStorage.showComment ?? "true",
-      },
+      darkTheme: typeof darkTheme === 'string' ? darkTheme === 'true' : darkTheme,
+      showArticleNav: typeof showArticleNav === 'string' ? showArticleNav === 'true' : showArticleNav,
+      showComment: typeof showComment === 'string' ? showComment === 'true' : showComment,
     });
   }, []);
   return (

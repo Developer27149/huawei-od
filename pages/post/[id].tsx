@@ -8,7 +8,7 @@ import ArticleNav from "components/ArticleComponent/ArticleNav";
 import Menu from "components/Menu";
 import ThemeBtn from "components/Menu/ThemeBtn";
 import ArticleNavBtn from 'components/Menu/ArticleNavBtn';
-
+import Title from 'components/ArticleComponent/Title'
 interface IProps {
   articleData: IArticleData;
 }
@@ -24,13 +24,12 @@ type Params = {
 
 const Post = (props: IProps) => {
   const {
-    articleData: { title, tags, content, navArr },
+    articleData: { title, tags = [], content, navArr },
   } = props;
 
   return (
     <div className={sd.atricle}>
-      <h1>Post: {title}</h1>
-      <ul>{tags && tags.map((tag) => <span key={tag}>{tag}</span>)}</ul>
+      <Title title={title} tags={tags}/>
       <ArticleNav navArr={navArr} />
       <Menu>
         <>

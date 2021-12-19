@@ -27,7 +27,6 @@ export default function Menu(props: { children: ReactChild }) {
     document.addEventListener("resize", handleResize);
     // change show items
     const handleModifyShowItems = () => {
-      console.log("click document");
       setShowItems(false);
     };
     document.addEventListener("click", handleModifyShowItems);
@@ -38,7 +37,6 @@ export default function Menu(props: { children: ReactChild }) {
   }, []);
   const handleClick = (e: React.MouseEvent) => {
     if (showItems) return;
-    console.log("click outside box");
     setShowItems(!showItems);
     e.stopPropagation();
   };

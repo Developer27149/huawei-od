@@ -1,15 +1,9 @@
 @import include-media
 
-.atricle
-  .content
-    @include media(">=desktop")
-      margin: 0
-        left: 300px
-        right: 460px
-
-    
-    
-
+.atricle  
+  padding-bottom: 4rem
+  p
+    line-height: 2rem
   blockquote p
     background: var(--color-text-1)
     color: var(--color-bg-1)
@@ -27,5 +21,10 @@
     border-bottom: 2px solid #7BE188
   p strong
     color: tomato
-
-@me
+  .content
+    @include media(">=tablet", "<=1200px")
+      padding: 0 3rem
+    @include media(">=desktop")
+      margin: 0
+        left: 300px
+        right: 460px

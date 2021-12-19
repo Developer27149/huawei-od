@@ -1,23 +1,26 @@
 import { Divider } from "@arco-design/web-react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { INavbar } from "interfaces";
 import sd from "styles/ArticleBar.module.sass";
 import MotionBox from "../MotionBox";
 import cns from "classnames";
 import { scrollToElemById } from "libs/scrollToElem";
+import { useAppContext } from "components/Context";
 
 interface IProps {
   navArr: INavbar[];
 }
 
-export default function ArticleNav(props: IProps) {
-  const [showNavbar, setShowNavbar] = useState(true);
-  const { navArr } = props;
-
+export default function ArticleNav({ navArr }: IProps) {
+  const { state, dispatch } = useAppContext();
+  const handleHiddenArticleNav = (e: React.MouseEvent<HTMLDivElement>) => {
+    dispatch({
+      ...state,
+      showArticleNav: false,
+    });
+    e.stopPropagation();
+  };
   useEffect(() => {
-    if (localStorage.article_bar) {
-      setShowNavbar(true);
-    }
     // init scroll event handle
     let scrollTimer: any;
     document.addEventListener("scroll", () => {
@@ -50,8 +53,11 @@ export default function ArticleNav(props: IProps) {
 
   return (
     <div className={sd.container}>
-      {showNavbar ? (
+      {state.showArticleNav && (
         <MotionBox className={sd.navbar}>
+          <span className={sd.close} onClick={handleHiddenArticleNav}>
+            <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M4 7.5h7" stroke="currentColor"></path></svg>
+          </span>
           <Divider orientation="center">目录</Divider>
           {navArr.length > 0 &&
             navArr.map((nav, idx) => {
@@ -69,32 +75,6 @@ export default function ArticleNav(props: IProps) {
                 </section>
               );
             })}
-        </MotionBox>
-      ) : (
-        <MotionBox
-          animate={{
-            opacity: 1,
-          }}
-          style={{
-            opacity: 0,
-            cursor: "pointer",
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-        >
-          <svg
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-          >
-            <path
-              d="M.5 0v14.5H15M5 2.5H2m6 3H3m5 3H5m10 3H8"
-              stroke="currentColor"
-            ></path>
-          </svg>
         </MotionBox>
       )}
     </div>
