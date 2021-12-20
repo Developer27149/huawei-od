@@ -41,8 +41,12 @@
       
       
   .btns
-    display: flex
-    flex-direction: column
-    margin: 0.2rem
-    gap: 10px
-    transform: scale(0.8)
+    position: absolute
+    bottom: 0.2rem
+    right: 0.2rem
+    opacity: 0.6
+    transform: scale(0.7)
+    transition: all 0.4s ease-in-out
+    &:hover
+      opacity: 1
+      transform: scale(0.9)

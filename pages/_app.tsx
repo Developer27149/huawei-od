@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
             content="width=device-width, initial-scale=1.0"
           />
         </Head>
-        <SessionProvider session={session}>
+        <SessionProvider session={pageProps.session}>
           <Component {...pageProps} />
         </SessionProvider>
       </Layout>

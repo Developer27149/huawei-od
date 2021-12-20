@@ -6,7 +6,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { Badge, Button, Empty } from "@arco-design/web-react";
 
 export default function Comment() {
-  const { data: session } = useSession();
+  const {data: session} = useSession();
   return (
     <div className={sd.container}>
       <div className={sd.header}>
