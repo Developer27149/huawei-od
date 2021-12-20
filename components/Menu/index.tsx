@@ -43,7 +43,6 @@ export default function Menu(props: { children: ReactChild }) {
   return (
     <>
       <MotionBox
-        onClick={handleClick}
         className={cn(sd.container)}
         drag
         dragConstraints={constrains}
@@ -58,22 +57,23 @@ export default function Menu(props: { children: ReactChild }) {
           props.children
         ) : (
           <MotionBox
+            onClick={handleClick}
             style={{
               width: "1rem",
               height: "1rem",
               borderRadius: "50%",
               opacity: 0.2,
-              backgroundColor: 'white',
-              scale: 1.6
+              backgroundColor: "white",
+              scale: 1.6,
             }}
-            animate={{      
+            animate={{
               opacity: 0.6,
-              scale: 1.8
+              scale: 1.8,
             }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              repeatType: "reverse"
+              repeatType: "reverse",
             }}
           ></MotionBox>
         )}

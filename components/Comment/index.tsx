@@ -3,11 +3,10 @@ import sd from "styles/Comment.module.sass";
 import GithubLogin from "./GithubLogin";
 import ReplyComment from "./ReplyComment";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Badge, Button, Avatar } from "@arco-design/web-react";
+import { Badge, Button, Empty } from "@arco-design/web-react";
 
 export default function Comment() {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <div className={sd.container}>
       <div className={sd.header}>
@@ -17,11 +16,14 @@ export default function Comment() {
           dotStyle={{
             transform: "scale(0.7)",
           }}
-          offset={[10, -6]}
+          offset={[10, 3]}
+          style={{
+            padding: '6px 14px',
+            borderRadius: '6px',
+            fontSize: '1.2rem'
+          }}
         >
-          <Button size="mini" type="primary" shape="round">
-            留言
-          </Button>
+          讨论
         </Badge>
         {session && (
           <Button
@@ -53,7 +55,7 @@ export default function Comment() {
         )}
       </div>
       <div className={sd.main}>
-        
+          <Empty />
       </div>
       <div className={sd.footer}>
         {session ? (

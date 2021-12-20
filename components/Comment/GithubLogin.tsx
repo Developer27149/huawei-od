@@ -11,7 +11,12 @@ export default function GithubLogin({login}: {login: Function}) {
       cursor: "pointer",
       borderRadius: "10px",      
     }}  onClick={() => login()}>
-      <span>
+      <span style={{
+        position: 'relative',
+        top: '2px',
+        left: '-4px',
+        color: 'tomato'
+      }}>
         <svg
           viewBox="0 0 15 15"
           fill="none"
