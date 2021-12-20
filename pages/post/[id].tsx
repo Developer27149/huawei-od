@@ -7,8 +7,10 @@ import { convertTextToValidId } from "libs";
 import ArticleNav from "components/ArticleComponent/ArticleNav";
 import Menu from "components/Menu";
 import ThemeBtn from "components/Menu/ThemeBtn";
-import ArticleNavBtn from 'components/Menu/ArticleNavBtn';
-import Title from 'components/ArticleComponent/Title'
+import ArticleNavBtn from "components/Menu/ArticleNavBtn";
+import Title from "components/ArticleComponent/Title";
+import Comment from "components/Comment";
+
 interface IProps {
   articleData: IArticleData;
 }
@@ -28,29 +30,32 @@ const Post = (props: IProps) => {
   } = props;
 
   return (
-    <div className={sd.atricle}>
-      <Title title={title} tags={tags}/>
-      <ArticleNav navArr={navArr} />
+    <>
       <Menu>
         <>
           <ThemeBtn />
           <ArticleNavBtn />
         </>
       </Menu>
-      <Markdown
-        className={sd.content}
-        options={{
-          overrides: {
-            pre: {
-              component: Code,
+      <div className={sd.atricle}>
+        <Title title={title} tags={tags} />
+        <ArticleNav navArr={navArr} />
+        <Markdown
+          className={sd.content}
+          options={{
+            overrides: {
+              pre: {
+                component: Code,
+              },
             },
-          },
-          slugify: convertTextToValidId,
-        }}
-      >
-        {content}
-      </Markdown>
-    </div>
+            slugify: convertTextToValidId,
+          }}
+        >
+          {content}
+        </Markdown>
+        <Comment />
+      </div>
+    </>
   );
 };
 

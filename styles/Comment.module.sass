@@ -1,0 +1,34 @@
+@import include-media
+
+.container
+  display: flex
+  padding: 0 1rem
+  background-color: var(--color-bg-1)
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+  border-radius: 12px
+  flex-direction: column
+  height: 80vh
+  @include media("<=tablet")
+    height: 75vh
+  width: min(90vw, 460px)
+  position: fixed
+  top: 12vh
+  right: 1rem
+  
+  .header
+    // height: 2rem
+    // background-color: #d5d5c0
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0.5rem
+    border-radius: 9px
+
+  .main
+    flex-grow: 1
+    background-color: #eee
+    border-radius: 8px
+    padding: 1rem
+  .footer  
+    display: flex
+    justify-content: center
