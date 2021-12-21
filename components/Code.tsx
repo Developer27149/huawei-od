@@ -9,11 +9,7 @@ interface IProps {
 }
 export default function Code(props: IProps) {
   const [lines, setLines] = useState(0);
-  const [minShow, setMinShow] = useState(false);
   const text = props.children.props.children;
-  const switchMinShow = () => {
-    setMinShow((prev) => !prev);
-  };
   useEffect(() => {
     hljs.highlightAll();
     setLines(text.split("\n").length);

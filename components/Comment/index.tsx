@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import sd from "styles/Comment.module.sass";
 import GithubLogin from "./GithubLogin";
 import ReplyComment from "./ReplyComment";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Badge, Button, Empty } from "@arco-design/web-react";
+import useGithubComment from 'hooks/useGithubComment';
 
-export default function Comment() {
+export default function CustomComment({postId, commentList}: {postId: string, commentList: any[]}) {
   const {data: session} = useSession();
+  const comments = useGithubComment(postId);
+  useEffect(() => {
+    console.log(session, 'is session!', postId);
+    console.log('comment list is:', commentList)
+  }, [])
   return (
     <div className={sd.container}>
       <div className={sd.header}>
@@ -59,7 +65,7 @@ export default function Comment() {
       </div>
       <div className={sd.footer}>
         {session ? (
-          <ReplyComment user={session.user} />
+          <ReplyComment user={session.user as {}} />
         ) : (
           <GithubLogin login={signIn} />
         )}

@@ -4,14 +4,12 @@ import sd from "styles/ReplyComment.module.sass";
 import { IconSend } from "@arco-design/web-react/icon";
 
 export default function ReplyComment({
-  logout,
   user,
 }: {
-  logout: Function;
   user: {
-    name: string;
-    email: string;
-    image: string;
+    name?: string;
+    email?: string;
+    image?: string;
   };
 }) {
   const { email, image, name } = user;
@@ -21,9 +19,6 @@ export default function ReplyComment({
         <Avatar size={28}>
           <img alt="头像" src={image} />
         </Avatar>
-        {/* <Tag color="blue" style={{
-          transform: 'scale(0.8)'
-        }}>{name.substring(0, 16)}</Tag> */}
         <Popover
           style={{
             fontSize: "10px",

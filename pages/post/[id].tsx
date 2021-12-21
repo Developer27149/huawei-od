@@ -1,5 +1,9 @@
 import Markdown from "markdown-to-jsx";
-import { getAllArticleIdArr, getArticleById } from "libs/help";
+import {
+  getAllArticleIdArr,
+  getArticleById,
+  getCommentsById,
+} from "libs/help";
 import { IArticleData } from "interfaces";
 import Code from "components/Code";
 import sd from "styles/Article.module.sass";
@@ -9,13 +13,12 @@ import Menu from "components/Menu";
 import ThemeBtn from "components/Menu/ThemeBtn";
 import ArticleNavBtn from "components/Menu/ArticleNavBtn";
 import Title from "components/ArticleComponent/Title";
-import Comment from "components/Comment";
+import CustomComment from "components/Comment";
 
 interface IProps {
   articleData: IArticleData;
-}
-interface IRecord {
-  [key: string]: number;
+  id: string;
+  commentList: any[];
 }
 
 type Params = {
@@ -27,6 +30,8 @@ type Params = {
 const Post = (props: IProps) => {
   const {
     articleData: { title, tags = [], content, navArr },
+    id,
+    commentList,
   } = props;
 
   return (
@@ -53,7 +58,7 @@ const Post = (props: IProps) => {
         >
           {content}
         </Markdown>
-        <Comment />
+        <CustomComment postId={id} commentList={commentList} />
       </div>
     </>
   );
@@ -62,10 +67,14 @@ const Post = (props: IProps) => {
 export default Post;
 
 export async function getStaticProps({ params }: Params) {
-  const articleData = await getArticleById(params.id);
+  const { id } = params;
+  const articleData = await getArticleById(id);
+  const commentList = await getCommentsById(`key${id}`);
   return {
     props: {
       articleData,
+      id,
+      commentList,
     },
   };
 }
