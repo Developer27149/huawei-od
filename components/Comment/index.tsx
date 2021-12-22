@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import sd from "styles/Comment.module.sass";
 import GithubLogin from "./GithubLogin";
 import ReplyComment from "./ReplyComment";
@@ -6,21 +6,27 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { Badge, Button, Empty } from "@arco-design/web-react";
 import useGithubComment from 'hooks/useGithubComment';
 import CommentItem from "./CommentItem";
+import { CommentContext } from 'contexts/comment/context';
 
-export default function CustomComment({ commentList }: { commentList: any[]}) {
+export default function CustomComment() {
   const session = useSession();
+  const { state, dispatch } = useContext(CommentContext);
+
   // const data = session.data;
   // const comments = useGithubComment(postId);
   useEffect(() => {
     console.log('session is:', session);
     // console.log('session is ', session);
-    console.log('comment list is:', commentList)
-  }, [session])
+    console.log('comment list is:', state.comments)
+    if(session.data?.accessToken) {
+      dispatch({type: 'token', payload: session.data.accessToken})
+    }
+  }, [state, session])
   return (
     <div className={sd.container}>
       <div className={sd.header}>
         <Badge
-          count={commentList.length}
+          count={state.comments?.length || 0}
           maxCount={99}
           dotStyle={{
             transform: "scale(0.7)",
@@ -65,8 +71,8 @@ export default function CustomComment({ commentList }: { commentList: any[]}) {
       </div>
       <div className={sd.main}>
           {
-            commentList.length > 0 ? (
-              commentList.map((i, idx) => (<CommentItem  token={session.data?.accessToken as string} idx={idx} data={i} key={i.id} />))
+            state.comments && state.comments.length > 0 ? (
+              state.comments.map((i, idx) => (<CommentItem idx={idx} data={i} key={i.id} />))
             ) : <Empty />
           }
       </div>

@@ -1,5 +1,4 @@
 import { Octokit } from "@octokit/rest";
-import { ok } from "assert";
 import { reactionsOptions } from "interfaces";
 
 interface IArgus {
@@ -56,16 +55,16 @@ export const createCommentForArticle = async (
     return false;
   }
 };
-
+const reactionsObject = {
+  "+1": "👍🏻",
+  "-1": "👎🏻",
+  confused: "😕",
+  heart: "❤️",
+  hooray: "🎉",
+  laugh: "😄",
+  eyes: "👀",
+  rocket: "🚀",
+}
 export const getReactionEmojiByName = (name: reactionsOptions) => {
-  return {
-    "+1": "👍🏻",
-    "-1": "👎🏻",
-    confused: "😕",
-    heart: "❤️",
-    hooray: "🎉",
-    laugh: "😄",
-    eyes: "👀",
-    rocket: "🚀",
-  }[name];
+  return reactionsObject[name];
 };

@@ -4,7 +4,6 @@ import {
   getArticleById,
   getCommentsById,
 } from "libs/help";
-import { IArticleData } from "interfaces";
 import Code from "components/ArticleComponent/Code";
 import sd from "styles/Article.module.sass";
 import { convertTextToValidId } from "libs";
@@ -14,17 +13,12 @@ import ThemeBtn from "components/Menu/ThemeBtn";
 import ArticleNavBtn from "components/Menu/ArticleNavBtn";
 import Title from "components/ArticleComponent/Title";
 import CustomComment from "components/Comment";
-import { createContext } from "react"
 import {owner, repo} from "libs/public"
-export const PublicContext = createContext({repo: "", owner: ""})
+import { IProps } from 'interfaces/index';
+import { CommentContext } from "contexts/comment/context";
+import { useReducer } from "react";
+import { commentReducer } from 'contexts/comment/reducer';
 
-interface IProps {
-  articleData: IArticleData;
-  id: string;
-  commentList: any[];
-  owner: string,
-  repo: string
-}
 
 type Params = {
   params: {
@@ -33,14 +27,20 @@ type Params = {
 };
 
 
-
 const Post = (props: IProps) => {
   const {
     articleData: { title, tags = [], content, navArr },
     commentList,
     repo, owner
   } = props;
-  
+  const [state, dispatch] = useReducer(commentReducer, {
+    identy: {
+      owner,
+      repo,
+      token: ""
+    },
+    comments: commentList
+  })
   return (
     <>
       <Menu>
@@ -65,9 +65,12 @@ const Post = (props: IProps) => {
         >
           {content}
         </Markdown>
-        <PublicContext.Provider value={{repo, owner}}>
+        {/* <PublicContext.Provider value={{repo, owner, commentList}}>
           <CustomComment commentList={commentList} />
-        </PublicContext.Provider>
+        </PublicContext.Provider> */}
+        <CommentContext.Provider value={{state, dispatch}}>
+          <CustomComment />
+        </CommentContext.Provider>
       </div>
     </>
   );

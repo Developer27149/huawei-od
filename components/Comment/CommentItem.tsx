@@ -87,7 +87,7 @@ export default function CommentItem({
           <img src={avatarUrl} alt={username} />
         </Avatar>
         <div>
-          <div className={sd.name}>{username}</div>
+          <a target="_blank" href={`https://github.com/${username}`} className={sd.name}>@{username}</a>
           <div className={sd.datetime}>{dayjs(datetime).toNow()}</div>
         </div>
         <div className={sd.add}>
@@ -108,7 +108,7 @@ export default function CommentItem({
                   .filter((i) => i !== "url" && i !== "total_count")
                   .map((i) => {
                     return (
-                      <div key={i} className={sd.emoji} onClick={() => setReactionForComment({id, key: i as reactionsOptions, identy, callback: handleNeedLogin})}>
+                      <div key={i} className={sd.emoji} onClick={() => setReactionForComment({id, action: i as reactionsOptions, identy, callback: handleNeedLogin})}>
                         {getReactionEmojiByName(i as reactionsOptions)}
                       </div>
                     );

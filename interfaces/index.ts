@@ -1,3 +1,10 @@
+export interface IProps {
+  articleData: IArticleData;
+  id: string;
+  commentList: IComment[];
+  owner: string,
+  repo: string
+}
 export interface IArticleData {
   title: string,
   tags?: string[],
@@ -11,6 +18,15 @@ export interface INavbar {
   targetId: string,
 }
 
+export interface IComment {
+  username: string;
+  avatarUrl: string;
+  content: string;
+  datetime: string;
+  reactions: IReactions;
+  id: number;
+}
+
 export interface IReactions {
   '+': number,
   '-': number,
@@ -19,7 +35,7 @@ export interface IReactions {
   'heart': number,
   'hooray': number,
   'rocket': number,
-  'total_count'?: number,
-  'url'?: string,
+  'total_count': number,
+  'url': string,
 }
 export type reactionsOptions = '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket'

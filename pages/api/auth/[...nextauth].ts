@@ -20,7 +20,7 @@ export default NextAuth({
     GithubProvider({
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      authorization: { params: { scope: "user admin:public_key" } },
+      authorization: { params: { scope: "read:user public_repo" } },
     }),
     // ...add more providers here
   ],
