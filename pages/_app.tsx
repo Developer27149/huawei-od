@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import "@arco-design/web-react/dist/css/arco.min.css";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
+import Layout from "components/Layout";
 import Head from "next/head";
 import { AppWrapper } from "components/Context";
 import { SessionProvider } from "next-auth/react"

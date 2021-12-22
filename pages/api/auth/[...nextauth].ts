@@ -20,13 +20,13 @@ export default NextAuth({
     GithubProvider({
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      authorization: { params: { scope: "user public_repo" } },
+      authorization: { params: { scope: "user admin:public_key" } },
     }),
     // ...add more providers here
   ],
   callbacks,
   pages: {
-    error: "/login",
+    error: "/error",
   },
   // A database is optional, but required to persist accounts in a database
   // database: process.env.DATABASE_URL,

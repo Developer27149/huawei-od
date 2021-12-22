@@ -5,7 +5,7 @@ import {
   getCommentsById,
 } from "libs/help";
 import { IArticleData } from "interfaces";
-import Code from "components/Code";
+import Code from "components/ArticleComponent/Code";
 import sd from "styles/Article.module.sass";
 import { convertTextToValidId } from "libs";
 import ArticleNav from "components/ArticleComponent/ArticleNav";
@@ -14,11 +14,16 @@ import ThemeBtn from "components/Menu/ThemeBtn";
 import ArticleNavBtn from "components/Menu/ArticleNavBtn";
 import Title from "components/ArticleComponent/Title";
 import CustomComment from "components/Comment";
+import { createContext } from "react"
+import {owner, repo} from "libs/public"
+export const PublicContext = createContext({repo: "", owner: ""})
 
 interface IProps {
   articleData: IArticleData;
   id: string;
   commentList: any[];
+  owner: string,
+  repo: string
 }
 
 type Params = {
@@ -27,13 +32,15 @@ type Params = {
   };
 };
 
+
+
 const Post = (props: IProps) => {
   const {
     articleData: { title, tags = [], content, navArr },
-    id,
     commentList,
+    repo, owner
   } = props;
-
+  
   return (
     <>
       <Menu>
@@ -58,7 +65,9 @@ const Post = (props: IProps) => {
         >
           {content}
         </Markdown>
-        <CustomComment postId={id} commentList={commentList} />
+        <PublicContext.Provider value={{repo, owner}}>
+          <CustomComment commentList={commentList} />
+        </PublicContext.Provider>
       </div>
     </>
   );
@@ -75,6 +84,8 @@ export async function getStaticProps({ params }: Params) {
       articleData,
       id,
       commentList,
+      owner,
+      repo
     },
   };
 }

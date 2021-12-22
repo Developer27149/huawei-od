@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import HeaderNavs from "./HeaderNavs";
+import HeaderNavs from "../HeaderNavs";
 import Logo from "./Logo";
 import sd from 'styles/Layout.module.sass'
 

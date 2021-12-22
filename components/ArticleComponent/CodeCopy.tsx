@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MotionBox from "./MotionBox";
+import MotionBox from "../MotionBox";
 import { copyText } from "libs/copy";
 import sd from "styles/CopyCode.module.sass";
 

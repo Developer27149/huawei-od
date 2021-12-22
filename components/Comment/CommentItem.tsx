@@ -1,14 +1,22 @@
-import { Comment, Avatar, Button, Popover, Notification } from "@arco-design/web-react";
+import { Avatar, Button, Popover, Notification } from "@arco-design/web-react";
 import MotionBox from "components/MotionBox";
 import {
   getReactionEmojiByName,
   setReactionForComment,
 } from "libs/comment.help";
 import Markdown from "markdown-to-jsx";
-import moment from "moment";
+
 import { IReactions, reactionsOptions } from "interfaces";
 import sd from "styles/CommentItem.module.sass";
 import CommentCode from "components/Comment/CommentCode";
+import { useContext } from "react";
+import { PublicContext } from "pages/post/[id]";
+
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/zh-cn';
+dayjs.extend(relativeTime)
+dayjs.locale('zh-cn');
 
 interface IProp {
   data: {
@@ -20,7 +28,7 @@ interface IProp {
     id: number;
   };
   idx: number;
-  token?: string;
+  token: string;
 }
 
 export default function CommentItem({
@@ -36,10 +44,15 @@ export default function CommentItem({
     },
   };
 
+  const {owner, repo} = useContext(PublicContext)
+  const identy = {
+    owner, repo, token
+  }
   const handleNeedLogin = () => {
     Notification.warning({
       title: 'Tip 😞',
-      content: '登录后才可以留言或点表情'
+      content: '登录后才可以留言或点表情',
+      position: "bottomRight"
     })
   }
 
@@ -60,7 +73,7 @@ export default function CommentItem({
               transform: "scale(0.8)",
             }}
             shape="round"
-            onClick={() => setReactionForComment(id, key, token, handleNeedLogin)}
+            onClick={() => setReactionForComment({id, action: key, identy, callback: handleNeedLogin})}
           >
             {` ${count}`}
           </Button>
@@ -75,7 +88,7 @@ export default function CommentItem({
         </Avatar>
         <div>
           <div className={sd.name}>{username}</div>
-          <div className={sd.datetime}>{moment(datetime).fromNow()}</div>
+          <div className={sd.datetime}>{dayjs(datetime).toNow()}</div>
         </div>
         <div className={sd.add}>
           <Popover
@@ -95,7 +108,7 @@ export default function CommentItem({
                   .filter((i) => i !== "url" && i !== "total_count")
                   .map((i) => {
                     return (
-                      <div key={i} className={sd.emoji} onClick={() => setReactionForComment(id, i as reactionsOptions, token, handleNeedLogin)}>
+                      <div key={i} className={sd.emoji} onClick={() => setReactionForComment({id, key: i as reactionsOptions, identy, callback: handleNeedLogin})}>
                         {getReactionEmojiByName(i as reactionsOptions)}
                       </div>
                     );

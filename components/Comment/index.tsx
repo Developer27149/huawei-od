@@ -7,15 +7,15 @@ import { Badge, Button, Empty } from "@arco-design/web-react";
 import useGithubComment from 'hooks/useGithubComment';
 import CommentItem from "./CommentItem";
 
-export default function CustomComment({postId, commentList}: {postId: string, commentList: any[]}) {
-  const data = useSession();
-  const {session} = data
+export default function CustomComment({ commentList }: { commentList: any[]}) {
+  const session = useSession();
+  // const data = session.data;
   // const comments = useGithubComment(postId);
   useEffect(() => {
-    console.log('session is ', session);
-    console.log('postId is ', postId)
+    console.log('session is:', session);
+    // console.log('session is ', session);
     console.log('comment list is:', commentList)
-  }, [])
+  }, [session])
   return (
     <div className={sd.container}>
       <div className={sd.header}>
@@ -34,7 +34,7 @@ export default function CustomComment({postId, commentList}: {postId: string, co
         >
           讨论
         </Badge>
-        {session && (
+        {session.data && (
           <Button
             onClick={() => signOut()}
             size="mini"
@@ -66,13 +66,13 @@ export default function CustomComment({postId, commentList}: {postId: string, co
       <div className={sd.main}>
           {
             commentList.length > 0 ? (
-              commentList.map((i, idx) => (<CommentItem idx={idx} data={i} key={i.id} />))
+              commentList.map((i, idx) => (<CommentItem  token={session.data?.accessToken as string} idx={idx} data={i} key={i.id} />))
             ) : <Empty />
           }
       </div>
       <div className={sd.footer}>
-        {session ? (
-          <ReplyComment user={session.user as {}} />
+        {session.data ? (
+          <ReplyComment user={session.data?.user as {}} />
         ) : (
           <GithubLogin login={signIn} />
         )}
