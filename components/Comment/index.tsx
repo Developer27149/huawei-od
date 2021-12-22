@@ -5,19 +5,22 @@ import ReplyComment from "./ReplyComment";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Badge, Button, Empty } from "@arco-design/web-react";
 import useGithubComment from 'hooks/useGithubComment';
+import CommentItem from "./CommentItem";
 
 export default function CustomComment({postId, commentList}: {postId: string, commentList: any[]}) {
-  const {data: session} = useSession();
-  const comments = useGithubComment(postId);
+  const data = useSession();
+  const {session} = data
+  // const comments = useGithubComment(postId);
   useEffect(() => {
-    console.log(session, 'is session!', postId);
+    console.log('session is ', session);
+    console.log('postId is ', postId)
     console.log('comment list is:', commentList)
   }, [])
   return (
     <div className={sd.container}>
       <div className={sd.header}>
         <Badge
-          count={10}
+          count={commentList.length}
           maxCount={99}
           dotStyle={{
             transform: "scale(0.7)",
@@ -61,7 +64,11 @@ export default function CustomComment({postId, commentList}: {postId: string, co
         )}
       </div>
       <div className={sd.main}>
-          <Empty />
+          {
+            commentList.length > 0 ? (
+              commentList.map((i, idx) => (<CommentItem idx={idx} data={i} key={i.id} />))
+            ) : <Empty />
+          }
       </div>
       <div className={sd.footer}>
         {session ? (

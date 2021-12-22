@@ -3,16 +3,23 @@
 .container
   display: flex
   background-color: var(--color-bg-1)
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 4px 12px
   border-radius: 12px
   flex-direction: column
-  height: 80vh
-  @include media("<=tablet")
-    height: 75vh
-  width: min(90vw, 460px)
+  height: 80vh  
+  width: min(100vw, 660px)
   position: fixed
-  top: 12vh
-  right: 1rem
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  @include media("<=480px")
+    padding-right: 0
+    height: 87vh
+    top: 13vh
+    left: 0
+    right: 0
+    bottom: 0
+    transform: translate(0, 0)
   
   .header
     display: flex
@@ -22,13 +29,18 @@
     border-bottom: 1px solid #eeeeee6f
 
   .main
+    width: 100%
     flex-grow: 1
     border-radius: 8px
     padding: 1rem
     display: flex
     flex-direction: column
-    justify-content: center
-    align-items: center
+    // justify-content: center
+    align-items: stretch
+    overflow-y: scroll
+    overflow-x: hidden
+    img
+      max-width: 100%
   .footer
     display: flex
     justify-content: center

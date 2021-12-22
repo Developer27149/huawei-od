@@ -1,0 +1,49 @@
+@import include-media
+
+.container
+  margin: 1rem 0
+  color: var(--color-text-1)
+  background-color: var(--color-bg-1)
+  // display: flex
+  // background-color: #eee
+  border-radius: 6px
+  display: flex
+  flex-direction: column
+  border: 1px solid #eee
+  .header
+    display: flex
+    flex-wrap: nowrap
+    padding: 0.5rem 1rem
+    gap: 8px    
+    background-color: #eeeeee77
+    .name
+      padding: 0 0.4rem
+    .datetime
+      padding: 0 0.4rem
+      font-size: 0.7em
+      opacity: 0.5
+    .add
+      flex-grow: 1
+      display: flex
+      justify-content: flex-end
+      align-items: center
+      gap: 10px
+      cursor: pointer
+      .idx        
+        opacity: 0.5      
+        font-size: 0.8em
+      .emoji
+        cursor: pointer!important
+        transition: all 0.4s ease-in-out
+        &:hover
+          transform: scale(1.1)
+
+  .content    
+    padding: 1rem
+  .reactions
+    padding: 0.5rem 1rem
+    display: flex
+    justify-content: flex-end
+  
+
+

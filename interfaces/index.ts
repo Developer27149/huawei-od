@@ -10,3 +10,16 @@ export interface INavbar {
   level: number,
   targetId: string,
 }
+
+export interface IReactions {
+  '+': number,
+  '-': number,
+  'confused': number,
+  'eyes': number,
+  'heart': number,
+  'hooray': number,
+  'rocket': number,
+  'total_count'?: number,
+  'url'?: string,
+}
+export type reactionsOptions = '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket'

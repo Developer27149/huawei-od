@@ -39,7 +39,11 @@ export default function login() {
           alignContent: "center",
         }}
       >
-        <Button onClick={() => router.back()}>返回上一页</Button>
+        <Button onClick={() => {          
+          router.push(localStorage.prevUrl ?? '/').then(() => {
+            localStorage.removeItem('prevUrl');
+          });
+        }}>返回上一页</Button>
       </div>
     </div>
   );

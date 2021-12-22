@@ -1,9 +1,10 @@
 import fs from "fs";
 import { join } from "path";
 import matter from "gray-matter";
-import { IArticleData, INavbar } from "interfaces";
+import { IArticleData, INavbar, reactionsOptions } from "interfaces";
 import { convertTextToValidId } from "./index";
 import { Octokit } from "@octokit/rest";
+import { owner,repo } from "./public";
 
 const fsPromise = fs.promises;
 const articleDir = join(process.cwd(), "articles");
@@ -54,13 +55,10 @@ const getLevel = (str: string) => {
   return record;
 };
 
-const repo = process.env.REPO as string;
-const owner = process.env.OWNER as string;
-
 const searchIssueNumberByKeyword = async (keyword: string, api: Octokit) => {
   let keep = true;
   let page = 1;
-  const per_page = 100;
+  const per_page = 30;
   let result: { id?: number; number?: number } = {};
   try {
     while (keep) {
@@ -94,21 +92,32 @@ const searchIssueNumberByKeyword = async (keyword: string, api: Octokit) => {
 };
 
 export const getCommentsById = async (id: string) => {
-  const api = new Octokit();
+  const api = new Octokit({auth: process.env.GITHUB_TOKEN});
   const result = await searchIssueNumberByKeyword(id, api);
   try {
     if (result.number) {
-      const { data } = await api.issues.listComments({
+      const resp = await api.issues.listComments({
         owner,
         repo,
         page: 1,
-        per_page: 100,
+        per_page: 60,
         issue_number: result.number,
         since: `${new Date(
           new Date().getTime() - 1000 * 60 * 60 * 24 * 365 * 2
         )}`,
       });
-      return data;
+      const data = resp.data;
+      const _res = data.map(i => {
+        return {
+          username: i.user?.login ?? "神秘人",
+          avatarUrl: i.user?.avatar_url ?? "",
+          content: i.body ?? "",
+          datetime: i.created_at ?? "",
+          reactions: i.reactions ?? undefined,
+          id: i.id ?? 0
+        }
+      });
+      return _res.filter(i => !Object.values(i).some(i => i === ""));
     } else {
       return [];
     }
@@ -132,3 +141,5 @@ const createALabel = async (name: string) => {
     console.log(error);
   }
 };
+
+

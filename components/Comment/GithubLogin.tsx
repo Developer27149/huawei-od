@@ -1,16 +1,17 @@
 import React from "react";
-// import Link from 'next/link';
 import MotionBox from '../MotionBox';
 
-const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}`
-
 export default function GithubLogin({login}: {login: Function}) {
+  const handleBeforeLogin = () => {
+    localStorage.prevUrl = location.href;
+    login('github');
+  }
   return (
     <MotionBox style={{
       padding: "1rem 0",
       cursor: "pointer",
       borderRadius: "10px",      
-    }}  onClick={() => login()}>
+    }}  onClick={handleBeforeLogin}>
       <span style={{
         position: 'relative',
         top: '2px',
@@ -30,7 +31,11 @@ export default function GithubLogin({login}: {login: Function}) {
           ></path>
         </svg>
       </span>
-      <span>使用 GitHub 账号登录</span>
+      <span style={{
+        color: "var(--color-text-1)",
+        opacity: '0.8',
+        fontWeight: 'bolder'
+      }}> Github 认证</span>
     </MotionBox>
   );
 }
