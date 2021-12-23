@@ -1,15 +1,15 @@
 import React from "react";
 import sd from "styles/ThemeBtn.module.sass";
-import { useAppContext } from "contexts/global";
+import { useGlobalContext } from "contexts/global";
 import MotionShareBox from 'components/Menu/MotionShareBox';
 
 export default function ArticleNavBtn() {
-  const {state, dispatch} = useAppContext();
+  const {state, dispatch} = useGlobalContext();
 
   const handleReverseShowArticleNav = (e: React.MouseEvent<HTMLElement>) => {
     dispatch({
-      ...state,
-      showArticleNav: !state.showArticleNav
+      type: "navbar",
+      payload: !state.showArticleNav
     })
     e.stopPropagation();
   }

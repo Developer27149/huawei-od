@@ -5,18 +5,18 @@ import sd from "styles/ArticleBar.module.sass";
 import MotionBox from "../MotionBox";
 import cns from "classnames";
 import { scrollToElemById } from "libs/scrollToElem";
-import { useAppContext } from "contexts/global";
+import { useGlobalContext } from "contexts/global";
 
 interface IProps {
   navArr: INavbar[];
 }
 
 export default function ArticleNav({ navArr }: IProps) {
-  const { state, dispatch } = useAppContext();
+  const { state, dispatch } = useGlobalContext();
   const handleHiddenArticleNav = (e: React.MouseEvent<HTMLDivElement>) => {
     dispatch({
-      ...state,
-      showArticleNav: false,
+      type: 'navbar',
+      payload: !state.showArticleNav
     });
     e.stopPropagation();
   };
@@ -56,7 +56,7 @@ export default function ArticleNav({ navArr }: IProps) {
       {state.showArticleNav && (
         <MotionBox className={sd.navbar}>
           <span className={sd.close} onClick={handleHiddenArticleNav}>
-            <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M4 7.5h7" stroke="currentColor"></path></svg>
+            <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M1 1.5h1m5 0h1m2 0h1m2 0h1m-1 3h1m-7 0h1m5 3h1m-4 0h1m-4 0h1m5 3h1m-7 0h1m5 3h1m-4 0h1m-4 0h1m-4 0h1m-4 0h1m-1-3h1m-1-3h1m2 0h1m-4-3h1m2-3h1" stroke="currentColor"></path></svg>
           </span>
           <Divider orientation="center">目录</Divider>
           {navArr.length > 0 &&

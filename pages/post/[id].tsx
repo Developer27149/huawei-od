@@ -19,6 +19,7 @@ import { CommentProvider } from "contexts/comment/context";
 import { useReducer } from "react";
 import { commentReducer } from 'contexts/comment/reducer';
 import { useSession } from 'next-auth/react';
+import CommentBtn from "components/Menu/CommentBtn";
 
 
 type Params = {
@@ -54,6 +55,7 @@ const Post = (props: IProps) => {
         <>
           <ThemeBtn />
           <ArticleNavBtn />
+          <CommentBtn />
         </>
       </Menu>
       <div className={sd.atricle}>
@@ -72,9 +74,6 @@ const Post = (props: IProps) => {
         >
           {content}
         </Markdown>
-        {/* <PublicContext.Provider value={{repo, owner, commentList}}>
-          <CustomComment commentList={commentList} />
-        </PublicContext.Provider> */}
         <CommentProvider value={{state, dispatch}}>
           <CustomComment />
         </CommentProvider>

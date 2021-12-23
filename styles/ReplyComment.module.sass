@@ -7,18 +7,20 @@
   // background-color: var(--color-text-1)
   // border-radius: 50%
   width: 100%
-  min-height: 6rem
+  padding: 0.2rem 0 1rem 0
+  min-height: 7rem
   @include media("<=tablet")
     max-height: 40px
   textarea
     border-radius: 8px
-    height: 100%
+    height: 90%
     margin: 0.5rem
-    @include media(">=desktop")      
-      margin: 1.4rem 0
+      right: 1rem
+
     flex-grow: 1
     resize: none
     padding: 0.5rem
+      
     border: none
     background-color: #fefefe
     box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 14px
@@ -30,17 +32,20 @@
       left: 0.4rem
     padding: 4px
     border-radius: 50%
-  
-      
-      
-      
-  .btns
+    .send
+      opacity: 0.6
+      transform: scale(0.7)
+      transition: all 0.4s ease-in-out
+      &:hover
+        opacity: 1
+        transform: scale(0.9)
+
+  .md
     position: absolute
-    bottom: 0.3rem
-    right: 0.8rem
-    opacity: 0.6
-    transform: scale(0.7)
-    transition: all 0.4s ease-in-out
-    &:hover
-      opacity: 1
-      transform: scale(0.9)
+    bottom: 0.4rem
+    left: 4rem
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 4px
+    opacity: 0.8

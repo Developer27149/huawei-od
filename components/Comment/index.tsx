@@ -5,21 +5,47 @@ import ReplyComment from "./ReplyComment";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Badge, Button, Empty } from "@arco-design/web-react";
 import CommentItem from "./CommentItem";
-import { CommentContext } from 'contexts/comment/context';
+import { CommentContext } from "contexts/comment/context";
+import { AppGlobalContext } from "contexts/global";
+import MotionBox from "components/MotionBox";
 
 export default function CustomComment() {
   const session = useSession();
   const { state, dispatch } = useContext(CommentContext);
+  const globalContext = useContext(AppGlobalContext);
 
   useEffect(() => {
-    console.log('session is:', session);
-    console.log('comment list is:', state)
-    dispatch({type: "update_token", payload: {
-      token: session.data?.accessToken as string | undefined
-    }})
-  }, [session])
+    console.log("session is:", session);
+    console.log("comment list is:", state);
+    dispatch({
+      type: "update_token",
+      payload: {
+        token: session.data?.accessToken as string | undefined,
+      },
+    });
+  }, [session]);
+
+  useEffect(() => {
+    console.log(globalContext.state.showComment);
+  }, [globalContext.state]);
   return (
-    <div className={sd.container}>
+    <MotionBox
+      className={sd.container}
+      style={{
+        display: globalContext.state.showComment ? "flex" : "none",
+        opacity: 0,
+        scale: 0.8
+      }}
+      animate={
+        globalContext.state.showComment ? {
+          opacity: 1,
+          scale: 1
+        } : {}
+      }
+      transition={{
+        duration: 0.5
+      }}
+    >
       <div className={sd.header}>
         <Badge
           count={state.comments?.length || 0}
@@ -29,9 +55,9 @@ export default function CustomComment() {
           }}
           offset={[10, 3]}
           style={{
-            padding: '6px 14px',
-            borderRadius: '6px',
-            fontSize: '1.2rem'
+            padding: "6px 14px",
+            borderRadius: "6px",
+            fontSize: "1.2rem",
           }}
         >
           讨论
@@ -66,11 +92,13 @@ export default function CustomComment() {
         )}
       </div>
       <div className={sd.main}>
-          {
-            state.comments && state.comments.length > 0 ? (
-              state.comments.map((i, idx) => (<CommentItem idx={idx} data={i} key={i.id} />))
-            ) : <Empty />
-          }
+        {state.comments && state.comments.length > 0 ? (
+          state.comments.map((i, idx) => (
+            <CommentItem idx={idx} data={i} key={i.id} />
+          ))
+        ) : (
+          <Empty />
+        )}
       </div>
       <div className={sd.footer}>
         {session.data ? (
@@ -79,6 +107,6 @@ export default function CustomComment() {
           <GithubLogin login={signIn} />
         )}
       </div>
-    </div>
+    </MotionBox>
   );
 }

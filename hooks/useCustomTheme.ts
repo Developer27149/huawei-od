@@ -1,13 +1,13 @@
 import React from "react";
-import { useAppContext } from "contexts/global";
+import { useGlobalContext } from "contexts/global";
 
 
 export const useCustomTheme = () => {
-  const {state, dispatch} = useAppContext();
+  const {state, dispatch} = useGlobalContext();
   const reverseTheme = (e: React.MouseEvent<HTMLElement>) => {
     dispatch({
-      ...state,
-      darkTheme: !state.darkTheme
+      type: "theme",
+      payload: !state.darkTheme
     });
     e.stopPropagation();
   };

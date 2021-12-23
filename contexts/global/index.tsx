@@ -47,7 +47,7 @@ export const globalReducer = (state: IGlobalState, action: IAction) => {
   }
 };
 
-const AppGlobalContext = createContext<{
+export const AppGlobalContext = createContext<{
   state: IGlobalState;
   dispatch: React.Dispatch<IAction>;
 }>({
