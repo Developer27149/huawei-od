@@ -5,7 +5,7 @@ import sd from "styles/ArticleBar.module.sass";
 import MotionBox from "../MotionBox";
 import cns from "classnames";
 import { scrollToElemById } from "libs/scrollToElem";
-import { useAppContext } from "components/Context";
+import { useAppContext } from "contexts/global";
 
 interface IProps {
   navArr: INavbar[];

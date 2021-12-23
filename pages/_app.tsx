@@ -3,12 +3,12 @@ import "@arco-design/web-react/dist/css/arco.min.css";
 import type { AppProps } from "next/app";
 import Layout from "components/Layout";
 import Head from "next/head";
-import { AppWrapper } from "components/Context";
+import { GlobalContextProvider } from "contexts/global";
 import { SessionProvider } from "next-auth/react"
 
 function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
   return (
-    <AppWrapper>
+    <GlobalContextProvider>
       <Layout>
         <Head>
           <meta
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
           <Component {...pageProps} />
         </SessionProvider>
       </Layout>
-    </AppWrapper>
+    </GlobalContextProvider>
   );
 }
 

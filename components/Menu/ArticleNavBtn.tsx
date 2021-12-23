@@ -1,6 +1,6 @@
 import React from "react";
 import sd from "styles/ThemeBtn.module.sass";
-import { useAppContext } from "components/Context";
+import { useAppContext } from "contexts/global";
 import MotionShareBox from 'components/Menu/MotionShareBox';
 
 export default function ArticleNavBtn() {
