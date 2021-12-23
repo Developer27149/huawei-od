@@ -1,9 +1,10 @@
 export interface IProps {
   articleData: IArticleData;
   id: string;
-  commentList: IComment[];
+  comments: IComment[];
   owner: string,
-  repo: string
+  repo: string,
+  issueNumber: number | null
 }
 export interface IArticleData {
   title: string,
@@ -28,8 +29,8 @@ export interface IComment {
 }
 
 export interface IReactions {
-  '+': number,
-  '-': number,
+  '+1': number,
+  '-1': number,
   'confused': number,
   'eyes': number,
   'heart': number,
@@ -37,5 +38,6 @@ export interface IReactions {
   'rocket': number,
   'total_count': number,
   'url': string,
+  'laugh': number
 }
 export type reactionsOptions = '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket'

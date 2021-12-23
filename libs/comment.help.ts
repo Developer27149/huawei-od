@@ -10,23 +10,24 @@ interface IArgus {
     token: string;
   };
   callback: Function;
+  successCallback: Function;
 }
 
 export const setReactionForComment = async (args: IArgus) => {
-  const { id, action, identy, callback } = args;
+  const { id, action, identy, callback, successCallback } = args;
   const { token, repo, owner } = identy;
   if (token === undefined && callback !== undefined) {
     callback();
   } else {
     const api = new Octokit({ auth: token });
     try {
-      const res = await api.reactions.createForIssueComment({
+      await api.reactions.createForIssueComment({
         owner,
         repo,
         comment_id: id,
         content: action,
       });
-      console.log(res);
+      successCallback();
     } catch (error) {
       console.log(error);
     }

@@ -4,7 +4,6 @@ import GithubLogin from "./GithubLogin";
 import ReplyComment from "./ReplyComment";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Badge, Button, Empty } from "@arco-design/web-react";
-import useGithubComment from 'hooks/useGithubComment';
 import CommentItem from "./CommentItem";
 import { CommentContext } from 'contexts/comment/context';
 
@@ -12,16 +11,13 @@ export default function CustomComment() {
   const session = useSession();
   const { state, dispatch } = useContext(CommentContext);
 
-  // const data = session.data;
-  // const comments = useGithubComment(postId);
   useEffect(() => {
     console.log('session is:', session);
-    // console.log('session is ', session);
-    console.log('comment list is:', state.comments)
-    if(session.data?.accessToken) {
-      dispatch({type: 'token', payload: session.data.accessToken})
-    }
-  }, [state, session])
+    console.log('comment list is:', state)
+    dispatch({type: "update_token", payload: {
+      token: session.data?.accessToken as string | undefined
+    }})
+  }, [session])
   return (
     <div className={sd.container}>
       <div className={sd.header}>

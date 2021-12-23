@@ -91,7 +91,7 @@ const searchIssueNumberByKeyword = async (keyword: string, api: Octokit) => {
   }
 };
 
-export const getCommentsById = async (id: string) => {
+export const getCommentsByIdAndIssueNumber = async (id: string) => {
   const api = new Octokit({auth: process.env.GITHUB_TOKEN});
   const result = await searchIssueNumberByKeyword(id, api);
   try {
@@ -104,7 +104,7 @@ export const getCommentsById = async (id: string) => {
         issue_number: result.number,
         since: `${new Date(
           new Date().getTime() - 1000 * 60 * 60 * 24 * 365 * 2
-        )}`,
+        )}`,        
       });
       const data = resp.data;
       const _res = data.map(i => {
@@ -113,17 +113,26 @@ export const getCommentsById = async (id: string) => {
           avatarUrl: i.user?.avatar_url ?? "",
           content: i.body ?? "",
           datetime: i.created_at ?? "",
-          reactions: i.reactions ?? undefined,
+          reactions: i.reactions,
           id: i.id ?? 0
         }
       });
-      return _res.filter(i => !Object.values(i).some(i => i === ""));
+      const _result = _res.filter(i => !Object.values(i).some(i => i === "")).reverse();
+      _result.sort((prev, next) => {
+        const a = next.reactions?.total_count ?? 0;
+        const b = prev.reactions?.total_count ?? 0;
+        return a === b ? (new Date(next.datetime).getTime() - new Date(prev.datetime).getTime()) : a - b;
+      })
+      return {
+        comments: _result,
+        issueNumber: result.number
+      };
     } else {
-      return [];
+      return {comments: []};
     }
   } catch (error) {
     console.log(error);
-    return [];
+    return {comments: []};
   }
 };
 

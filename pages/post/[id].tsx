@@ -2,7 +2,7 @@ import Markdown from "markdown-to-jsx";
 import {
   getAllArticleIdArr,
   getArticleById,
-  getCommentsById,
+  getCommentsByIdAndIssueNumber,
 } from "libs/help";
 import Code from "components/ArticleComponent/Code";
 import sd from "styles/Article.module.sass";
@@ -15,9 +15,10 @@ import Title from "components/ArticleComponent/Title";
 import CustomComment from "components/Comment";
 import {owner, repo} from "libs/public"
 import { IProps } from 'interfaces/index';
-import { CommentContext } from "contexts/comment/context";
+import { CommentProvider } from "contexts/comment/context";
 import { useReducer } from "react";
 import { commentReducer } from 'contexts/comment/reducer';
+import { useSession } from 'next-auth/react';
 
 
 type Params = {
@@ -30,17 +31,23 @@ type Params = {
 const Post = (props: IProps) => {
   const {
     articleData: { title, tags = [], content, navArr },
-    commentList,
-    repo, owner
+    comments,
+    repo, owner, id,issueNumber
   } = props;
+
+  const session = useSession();
+  // eslint-nextline-disable
   const [state, dispatch] = useReducer(commentReducer, {
     identy: {
       owner,
       repo,
-      token: ""
+      token: session.data?.accessToken || ""
     },
-    comments: commentList
+    comments,
+    pathId: id,
+    issueNumber
   })
+
   return (
     <>
       <Menu>
@@ -68,9 +75,9 @@ const Post = (props: IProps) => {
         {/* <PublicContext.Provider value={{repo, owner, commentList}}>
           <CustomComment commentList={commentList} />
         </PublicContext.Provider> */}
-        <CommentContext.Provider value={{state, dispatch}}>
+        <CommentProvider value={{state, dispatch}}>
           <CustomComment />
-        </CommentContext.Provider>
+        </CommentProvider>
       </div>
     </>
   );
@@ -81,14 +88,15 @@ export default Post;
 export async function getStaticProps({ params }: Params) {
   const { id } = params;
   const articleData = await getArticleById(id);
-  const commentList = await getCommentsById(`key${id}`);
+  const {comments, issueNumber = null} = await getCommentsByIdAndIssueNumber(`key${id}`);
   return {
     props: {
       articleData,
       id,
-      commentList,
+      comments,
       owner,
-      repo
+      repo,
+      issueNumber,
     },
   };
 }
