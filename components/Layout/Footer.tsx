@@ -1,50 +1,12 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import MotionBox from "../MotionBox";
-import OutLink from "../OutLink";
-import sd from 'styles/HeaderNav.module.sass'
+import OutLink from "components/OutLink";
+import React from "react";
+import sd from "styles/Footer.module.sass";
 
-export default function HeaderNavs() {
-  const [activeId, setActiveId] = useState(3);
-  const router = useRouter();
-  const handleUrlChange = (url: string) => {
-    if (url.endsWith("/about")) {
-      setActiveId(1);
-    } else if(url.endsWith('/')){
-      setActiveId(0);
-    }
-  };
-  useEffect(() => {
-    handleUrlChange(location.href);
-    router.events.on("routeChangeComplete", handleUrlChange);
-    return () => {
-      router.events.off("routeChangeComplete", handleUrlChange);
-    };
-  }, []);
-
+export default function Footer() {
   return (
-    <MotionBox
-      style={{
-        fontWeight: "bolder",
-        opacity: 0,
-        position: "relative",
-        top: -20,
-        paddingRight: 24,
-      }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        top: 0,
-      }}
-      transition={{
-        duration: 0.6,
-        repeat: 0,
-        delay: 0,
-      }}
-    >
-      <span className={activeId === 0 ? sd.active : ""}>
-        <Link href="/">
+    <div className={sd.footer}>
+      <OutLink href="mailto: youyiqinyy@gmail.com">
+        <>
           <svg
             viewBox="0 0 15 15"
             fill="none"
@@ -53,30 +15,15 @@ export default function HeaderNavs() {
             height="15"
           >
             <path
-              d="M7.5.5l.325-.38a.5.5 0 00-.65 0L7.5.5zm-7 6l-.325-.38L0 6.27v.23h.5zm5 8v.5a.5.5 0 00.5-.5h-.5zm4 0H9a.5.5 0 00.5.5v-.5zm5-8h.5v-.23l-.175-.15-.325.38zM1.5 15h4v-1h-4v1zm13.325-8.88l-7-6-.65.76 7 6 .65-.76zm-7.65-6l-7 6 .65.76 7-6-.65-.76zM6 14.5v-3H5v3h1zm3-3v3h1v-3H9zm.5 3.5h4v-1h-4v1zm5.5-1.5v-7h-1v7h1zm-15-7v7h1v-7H0zM7.5 10A1.5 1.5 0 019 11.5h1A2.5 2.5 0 007.5 9v1zm0-1A2.5 2.5 0 005 11.5h1A1.5 1.5 0 017.5 10V9zm6 6a1.5 1.5 0 001.5-1.5h-1a.5.5 0 01-.5.5v1zm-12-1a.5.5 0 01-.5-.5H0A1.5 1.5 0 001.5 15v-1z"
+              d="M14.5.5l.46.197a.5.5 0 00-.657-.657L14.5.5zm-14 6l-.197-.46a.5.5 0 00-.06.889L.5 6.5zm8 8l-.429.257a.5.5 0 00.889-.06L8.5 14.5zM14.303.04l-14 6 .394.92 14-6-.394-.92zM.243 6.93l5 3 .514-.858-5-3-.514.858zM5.07 9.757l3 5 .858-.514-3-5-.858.514zm3.889 4.94l6-14-.92-.394-6 14 .92.394zM14.146.147l-9 9 .708.707 9-9-.708-.708z"
               fill="currentColor"
             ></path>
           </svg>
-        </Link>
-      </span>
-      <span className={activeId === 1 ? sd.active : ""}>
-        <Link href="/about">
-          <svg
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-          >
-            <path
-              d="M4 6h1V5H4v1zm6 0h1V5h-1v1zm.1 2.7a3.25 3.25 0 01-5.2 0l-.8.6c1.7 2.267 5.1 2.267 6.8 0l-.8-.6zM1 5V2.5H0V5h1zm1.5-4H5V0H2.5v1zM1 2.5A1.5 1.5 0 012.5 1V0A2.5 2.5 0 000 2.5h1zM0 10v2.5h1V10H0zm2.5 5H5v-1H2.5v1zM0 12.5A2.5 2.5 0 002.5 15v-1A1.5 1.5 0 011 12.5H0zM10 1h2.5V0H10v1zm4 1.5V5h1V2.5h-1zM12.5 1A1.5 1.5 0 0114 2.5h1A2.5 2.5 0 0012.5 0v1zM10 15h2.5v-1H10v1zm5-2.5V10h-1v2.5h1zM12.5 15a2.5 2.5 0 002.5-2.5h-1a1.5 1.5 0 01-1.5 1.5v1z"
-              fill="currentColor"
-            ></path>
-          </svg>
-        </Link>
-      </span>
-      <span>
-        <OutLink href="https://github.com/youyiqin/huawei-od">
+          <span>联系我</span>
+        </>
+      </OutLink>
+      <OutLink href="https://github.com/youyiqin/huawei-od">
+        <>
           <svg
             viewBox="0 0 15 15"
             fill="none"
@@ -89,8 +36,9 @@ export default function HeaderNavs() {
               fill="currentColor"
             ></path>
           </svg>
-        </OutLink>
-      </span>
-    </MotionBox>
+          <span>Code</span>
+        </>
+      </OutLink>
+    </div>
   );
 }

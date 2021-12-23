@@ -58,7 +58,7 @@ export default function ArticleNav({ navArr }: IProps) {
           <span className={sd.close} onClick={handleHiddenArticleNav}>
             <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M1 1.5h1m5 0h1m2 0h1m2 0h1m-1 3h1m-7 0h1m5 3h1m-4 0h1m-4 0h1m5 3h1m-7 0h1m5 3h1m-4 0h1m-4 0h1m-4 0h1m-4 0h1m-1-3h1m-1-3h1m2 0h1m-4-3h1m2-3h1" stroke="currentColor"></path></svg>
           </span>
-          <Divider orientation="center">目录</Divider>
+          <Divider orientation="center" className={sd.title}>目录</Divider>
           {navArr.length > 0 &&
             navArr.map((nav, idx) => {
               return (

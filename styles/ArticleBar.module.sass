@@ -3,7 +3,6 @@
 .container  
   font-size: 0.7rem
   position: relative
-  width: 300px
   .navbar    
     position: fixed
     top: 50%
@@ -13,6 +12,7 @@
     padding: 1rem 3rem
     transform: translate(-50%, -50%)
     box-shadow: #9a9abfa8 0px 1px 4px
+    width: min(80vw, 400px)
     @include media("<=1200px")
       left: 50%
     .close
@@ -26,6 +26,9 @@
       &:hover
         opacity: 1
         transition: scale(1.2)
+    .title
+      @include media("<=460px")
+        width: 70vw
 
 
   .section

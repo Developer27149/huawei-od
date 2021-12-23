@@ -46,6 +46,7 @@ export const createCommentForArticle = async (
   const {token, repo, owner} = identy;
   const api = new Octokit({ auth: token });
   try {
+    // 如果开头是#n，则为回复某一条留言    
     const res = await api.issues.createComment({
       owner, repo, issue_number, body
     })
@@ -66,6 +67,7 @@ const reactionsObject = {
   eyes: "👀",
   rocket: "🚀",
 }
+
 export const getReactionEmojiByName = (name: reactionsOptions) => {
   return reactionsObject[name];
 };

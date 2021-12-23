@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import HeaderNavs from "../HeaderNavs";
 import Logo from "./Logo";
+import Footer from "./Footer"
 import sd from 'styles/Layout.module.sass'
 
 const Layout: NextPage = ({ children }) => {
@@ -12,6 +13,7 @@ const Layout: NextPage = ({ children }) => {
         <HeaderNavs />
       </div>
       <main className={sd.main}>{children}</main>
+      <Footer />
     </div>
   );
 };

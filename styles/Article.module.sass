@@ -5,16 +5,20 @@
   position: relative
   p
     line-height: 2rem
+  blockquote
+    margin: 0
+    @include media(">=tablet")
+      margin-right: 2rem
   blockquote p
     background: var(--color-text-1)
     color: var(--color-bg-1)
     padding: 1rem
-    margin: 1.5rem 0
-    border-right: 4px solid tomato
+    margin-right: 1.5rem
+    border-left: 4px solid tomato
     border-radius: 8px
-    max-width: 500px
-    text-align: center
-    text-indent: 2em
+    // max-width: 500px
+    // text-align: center
+    // text-indent: 2em
   p em,code,strong
     font-weight: bolder
     margin: 0 4px

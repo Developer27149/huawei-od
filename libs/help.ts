@@ -135,21 +135,3 @@ export const getCommentsByIdAndIssueNumber = async (id: string) => {
     return {comments: []};
   }
 };
-
-
-const createALabel = async (name: string) => {
-  const api = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
-  });
-  try {
-    api.issues.createLabel({
-      owner,
-      repo,
-      name,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-

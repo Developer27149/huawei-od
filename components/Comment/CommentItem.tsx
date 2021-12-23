@@ -37,7 +37,7 @@ export default function CommentItem({
   };
 
   const {
-    state: { identy, pathId },
+    state: { identy, pathId,msg },
     dispatch,
   } = useContext(CommentContext);
 
@@ -48,6 +48,15 @@ export default function CommentItem({
       position: "bottomRight",
     });
   };
+
+  const handleReplySomeone = (target: string) => {
+    dispatch({
+      type: "update_msg",
+      payload: {
+        msg: `${target} ${(msg || '').replace(/^#\d+ /, '')}`
+      }
+    })
+  }
 
   const successCallback = async () => {
     try {
@@ -155,7 +164,7 @@ export default function CommentItem({
           >
             😁
           </Popover>
-          <span className={sd.idx}>#{idx + 1}</span>
+          <span className={sd.idx} id={`${idx + 1}`} onClick={() => handleReplySomeone(`#${idx+1}`)}>#{idx + 1}</span>
         </div>
       </div>
       <Markdown className={sd.content} options={options}>

@@ -33,13 +33,13 @@ export default function CustomComment() {
       className={sd.container}
       style={{
         display: globalContext.state.showComment ? "flex" : "none",
-        opacity: 0,
-        scale: 0.8
+        opacity: 0.6,
+        right: globalContext.state.showComment ? "0" : "-100%"
       }}
       animate={
         globalContext.state.showComment ? {
           opacity: 1,
-          scale: 1
+          right: 0
         } : {}
       }
       transition={{
