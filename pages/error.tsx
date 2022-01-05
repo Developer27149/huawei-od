@@ -39,7 +39,7 @@ export default function login() {
             />
           </MotionBox>
           <p style={{ textAlign: "center" }}>
-            网络波动，墙太高了😭，稍后重试吧。
+            对不起，或许是墙太高了😭，稍后重试吧
           </p>
           <div
             style={{

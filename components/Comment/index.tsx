@@ -18,7 +18,6 @@ export default function CustomComment() {
   const handleSwitchShowComment = () => {
     globalContext.dispatch({ type: "comment", showComment: false });
   };
-
   useEffect(() => {
     dispatch({
       type: "update_token",

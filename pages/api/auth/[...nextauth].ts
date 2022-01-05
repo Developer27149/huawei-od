@@ -21,6 +21,7 @@ export default NextAuth({
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
       authorization: { params: { scope: "read:user public_repo" } },
+      httpOptions: {timeout: 10000}
     }),
     // ...add more providers here
   ],
@@ -28,6 +29,8 @@ export default NextAuth({
   pages: {
     error: "/error",
   },
+  
+  // timeout: 4
   // A database is optional, but required to persist accounts in a database
   // database: process.env.DATABASE_URL,
 });
