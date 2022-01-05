@@ -28,9 +28,11 @@
   p strong
     color: tomato
   .content
+    width: min(100vw, 860px)
+    margin: 0 auto
     @include media(">=tablet", "<=1200px")
       padding: 0 2rem
     @include media(">=desktop")
-      margin: 0
+      margin
         left: 150px
         right: 150px
