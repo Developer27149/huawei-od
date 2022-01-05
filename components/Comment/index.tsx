@@ -3,7 +3,7 @@ import sd from "styles/Comment.module.sass";
 import GithubLogin from "./GithubLogin";
 import ReplyComment from "./ReplyComment";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Badge, Button, Empty } from "@arco-design/web-react";
+import { Badge, Empty } from "@arco-design/web-react";
 import CommentItem from "./CommentItem";
 import { CommentContext } from "contexts/comment/context";
 import MotionBox from "components/MotionBox";
