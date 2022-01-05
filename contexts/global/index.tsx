@@ -60,8 +60,8 @@ export function GlobalContextProvider(props: { children: ReactChild }) {
   useEffect(() => {
     const { darkTheme, showArticleNav, showComment } = localStorage;
     dispatch({ type: "theme", payload: darkTheme === "true" });
-    dispatch({ type: "navbar", payload: showArticleNav !== "true" });
-    dispatch({ type: "comment", payload: showComment !== "true" });
+    dispatch({ type: "navbar", payload: showArticleNav === "true" });
+    dispatch({ type: "comment", payload: showComment === "true" });
   }, []);
   return (
     <AppGlobalContext.Provider value={{ state, dispatch }}>
