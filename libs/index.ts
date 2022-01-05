@@ -7,7 +7,7 @@ export const setDarkMode = (isDark: boolean): void => {
 };
 
 export const convertTextToValidId = (str: string): string =>
-  encodeURI(str).replaceAll("%", "").replaceAll(/[^\w]/g, "");
+  encodeURI(str).replace(/%/, "").replace(/[^\w]/g, "");
 
 export const randomColorByIdx = (idx: number): string => {
   return [
