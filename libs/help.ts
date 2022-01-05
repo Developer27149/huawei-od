@@ -65,7 +65,7 @@ const createArticleNavbarTree = (content: string) => {
     .split("\n")
     .filter((i) => /^\#.*$/.test(i.trim()))
     .forEach((i: string) => {
-      const text = i.replaceAll("#", "").trim();
+      const text = i.replace(/#/g, "").trim();
       const targetId = convertTextToValidId(text);
       result.push({ text, level: getLevel(i), targetId });
     });
