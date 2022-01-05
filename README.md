@@ -28,8 +28,7 @@
 ## 部署
 
 部署在 `vercel` 和 `github` !你可以在以下地址访问：
-
-
+- https://huawei-od.vercel.app/
 
 ## 其他
 
