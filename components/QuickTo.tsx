@@ -1,7 +1,8 @@
-import { Input } from "@arco-design/web-react";
+import { Input, Message } from "@arco-design/web-react";
 import { useState } from "react";
 import { IconCode } from "@arco-design/web-react/icon";
 import { useRouter } from "next/router";
+import { IconFaceSmileFill } from '@arco-design/web-react/icon';
 
 export default function QuickTo() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function QuickTo() {
     if (/^\d+$/.test(v)) {
       router.push(`/post/${v}`);
       setV("");
+      Message.info({ icon: <IconFaceSmileFill />, content: '正在跳转！' ,position: "bottom"})
     }
   };
   const handleChange = (e: string) => {
