@@ -13,16 +13,16 @@ import Menu from "components/Menu";
 import ThemeBtn from "components/Menu/ThemeBtn";
 import ArticleNavBtn from "components/Menu/ArticleNavBtn";
 import Title from "components/ArticleComponent/Title";
-// import CustomComment from "components/Comment";
 import { owner, repo } from "libs/public";
 import { IProps } from "interfaces/index";
-import { CommentProvider } from "contexts/comment/context";
+import { CommentProvider,IInitState } from "contexts/comment/context";
 import { useReducer } from "react";
 import { commentReducer } from "contexts/comment/reducer";
 import { useSession } from "next-auth/react";
 import CommentBtn from "components/Menu/CommentBtn";
 import dynamic from "next/dynamic";
 import { useGlobalContext } from "contexts/global";
+
 const ArticleNav = dynamic(
   () => import("components/ArticleComponent/ArticleNav")
 );
@@ -47,7 +47,7 @@ const Post = (props: IProps) => {
   const session = useSession();
   const globalContext = useGlobalContext();
   // eslint-nextline-disable
-  const [state, dispatch] = useReducer(commentReducer, {
+  const [state, dispatch] = useReducer<any>(commentReducer, {
     identy: {
       owner,
       repo,
@@ -56,6 +56,7 @@ const Post = (props: IProps) => {
     comments,
     pathId: id,
     issueNumber,
+    msg: ""
   });
 
   return (
@@ -88,7 +89,7 @@ const Post = (props: IProps) => {
         >
           {content}
         </Markdown>
-        <CommentProvider value={{ state, dispatch }}>
+        <CommentProvider value={{ state: state as IInitState, dispatch }}>
             <CustomComment />
           </CommentProvider>
       </div>
