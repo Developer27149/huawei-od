@@ -1,61 +1,79 @@
-import React, { useContext, useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import sd from "styles/Comment.module.sass";
-import GithubLogin from "./GithubLogin";
-import ReplyComment from "./ReplyComment";
+// import GithubLogin from "./GithubLogin";
+// import ReplyComment from "./ReplyComment";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Badge, Empty } from "@arco-design/web-react";
-import CommentItem from "./CommentItem";
-import { CommentContext } from "contexts/comment/context";
+// import { Badge, Empty } from "@arco-design/web-react";
+// import CommentItem from "./CommentItem";
+// import { CommentContext } from "contexts/comment/context";
 import MotionBox from "components/MotionBox";
-import { IconMenuFold } from "@arco-design/web-react/icon";
+import { IconMenuFold, IconMenuUnfold } from "@arco-design/web-react/icon";
 import { useGlobalContext } from "contexts/global";
+import PublicComment from "components/PublicComment";
 
 export default function CustomComment() {
-  const session = useSession();
+  // const session = useSession();
   const [isShow, setIsShow] = useState(false);
-  const { state, dispatch } = useContext(CommentContext);
-  const globalContext = useGlobalContext();
-  const handleSwitchShowComment = () => {
-    globalContext.dispatch({ type: "comment", showComment: false });
-  };
-  useEffect(() => {
+  // const { state, dispatch } = useContext(CommentContext);
+  const { state, dispatch } = useGlobalContext();
+
+  // const handleSwitchShowComment = () => {
+  //   console.log('click btn', state)
+  //   dispatch({
+  //     type: "comment",
+  //     showComment: !state.showComment,
+  //   });
+  // };
+
+  const handleSwitchShowComment = (e: React.MouseEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
     dispatch({
-      type: "update_token",
-      payload: {
-        token: session.data?.accessToken as string | undefined,
-      },
+      type: "comment",
+      payload: !state.showComment,
     });
-  }, [session]);
+  };
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "update_token",
+  //     payload: {
+  //       token: session.data?.accessToken as string | undefined,
+  //     },
+  //   });
+  // }, [session]);
   useEffect(() => {
     setTimeout(() => {
-      setIsShow(true)
-    }, 2000)
-  }, [])
+      setIsShow(true);
+    }, 2000);
+  }, []);
 
   return (
     <MotionBox
       className={sd.container}
       style={{
         opacity: 0,
-        right: globalContext.state.showComment ? "-570px" : "0",
-        display: isShow ? '' : "none"
+        right: state.showComment ? "-670px" : "0",
+        display: isShow ? "" : "none",
+        padding: "1rem",
       }}
       animate={{
         opacity: 1,
-        right: globalContext.state.showComment ? 0 : "-570px",
+        right: state.showComment ? 0 : "-670px",
       }}
       transition={{
         duration: 1,
       }}
     >
-      <div className={sd.header}>
-        <IconMenuFold
-          onClick={handleSwitchShowComment}
-          style={{
-            cursor: "pointer",
-          }}
-        />
-        <Badge
+      <PublicComment />
+      <span
+        className={sd.header}
+        onClick={handleSwitchShowComment}
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        {state.showComment ? <IconMenuUnfold /> : <IconMenuFold />}
+
+        {/* <Badge
           count={state.comments?.length || 0}
           maxCount={99}
           dotStyle={{
@@ -92,9 +110,10 @@ export default function CustomComment() {
               ></path>
             </svg>
           </span>
-        )}
-      </div>
-      <div className={sd.main}>
+        )} */}
+      </span>
+
+      {/* <div className={sd.main}>
         {state.comments && state.comments.length > 0 ? (
           state.comments.map((i, idx) => (
             <CommentItem idx={idx} data={i} key={i.id} />
@@ -109,7 +128,7 @@ export default function CustomComment() {
         ) : (
           <GithubLogin login={signIn} />
         )}
-      </div>
+      </div> */}
     </MotionBox>
   );
 }
