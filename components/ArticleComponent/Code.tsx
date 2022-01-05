@@ -2,7 +2,7 @@ import React, { useState, ReactChildren, useEffect } from "react";
 import sd from "styles/Code.module.sass";
 import CodeCopy from "./CodeCopy";
 import hljs from "highlight.js";
-import "highlight.js/styles/Shades-of-purple.css";
+import "styles/Shades-of-purple.css";
 
 interface IProps {
   children: ReactChildren | JSX.Element | any;
