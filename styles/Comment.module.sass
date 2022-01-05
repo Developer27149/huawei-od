@@ -1,26 +1,20 @@
 @import include-media
 
 .container
+  display: flex
   background-color: var(--color-bg-1)
   box-shadow: rgba(0, 0, 0, 0.1) 1px 4px 12px
   flex-direction: column
-  // height: 80vh  
-  width: min(100vw, 660px)
+  width: min(100vw, 560px)
   position: fixed
-  // right: 0
   top: 0
   bottom: 0
+  // right: min(100vw, 560px)
   z-index: 888
-  // top: 50%
-  // left: 50%
-  // border: 2px solid var(--color-text-1)
-  // transform: translate(-50%, -50%)
   @include media("<=480px")
     padding-right: 0
-    height: 87vh
-    top: 13vh
-    left: 0
-    right: 0
+    height: 91vh
+    top: 9vh
     bottom: 0
     transform: translate(0, 0)
   
@@ -40,7 +34,7 @@
     flex-direction: column
     // justify-content: center
     align-items: stretch
-    overflow-y: scroll
+    overflow-y: auto
     overflow-x: hidden
     img
       max-width: 100%

@@ -1,10 +1,13 @@
 import OutLink from "components/OutLink";
 import React from "react";
 import sd from "styles/Footer.module.sass";
+import QuickTo from "components/QuickTo";
+
 
 export default function Footer() {
   return (
     <div className={sd.footer}>
+      <QuickTo />
       <OutLink href="mailto: youyiqinyy@gmail.com">
         <>
           <svg
@@ -36,7 +39,7 @@ export default function Footer() {
               fill="currentColor"
             ></path>
           </svg>
-          <span>Code</span>
+          <span>源代码</span>
         </>
       </OutLink>
     </div>

@@ -4,14 +4,15 @@ import Image from "next/image";
 import styled from "../styles/About.module.sass";
 import MotionBox from "../components/MotionBox";
 import OutLink from "../components/OutLink";
+import TypeIt from "typeit-react";
 
 const about: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>关于本站 - 华为OD机考算法JavaScript题解合集</title>
+        <title>关于本站 - 华为 OJ 机考算法JavaScript题解合集</title>
         <meta name="description" content="我是谁 为什么要建立本站 如何联系我" />
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
 
       <div className={styled.container}>
@@ -39,19 +40,12 @@ const about: NextPage = () => {
             }}
           >
             <p>
-              因为想练习算法和准备面试，机缘巧合之下在牛客网刷华为机考算法题。个人感觉牛客的
-              JavaScript
-              开发者较少，提交的相关题解也不够多，于是自己便在写完一题的时候加上题解，以整理自己的思路，也可以为后来者提供一些帮助。
+              我在牛客网刷了一圈华为 OJ 的题，最终整理了 JavaScript 题解示例在此。
             </p>
-            <p>
-              多数开发者都使用 Python 或 C/C++ 来写算法题，JavaScript
-              相对较少，于是打算将自己的 JavaScript 题解整合起来，再使用 NextJs
-              写一个静态应用发布出来。
-            </p>
+            <p>题解不算详细，不过能保证都通过了所有的测试用例。总之，希望能帮到你。</p>
             <p>
               同时，也将一些已知的其他语言题解整理好的仓库地址收集到这里，以供他用⛽️。
             </p>
-            <p>多语言题解合集:</p>
             <div className={styled.list}>
               <OutLink href="/">
                 <svg
@@ -100,24 +94,19 @@ const about: NextPage = () => {
           </MotionBox>
         </div>
         <MotionBox
-          className={styled.img}
-          animate={{
-            opacity: 1,
-            top: 50,
-          }}
-          transition={{
-            duration: 1,
-            delay: 1.6,
-          }}
-        >
-          <Image
-            src="/sad1.jpg"
-            className={styled.image}
-            width={800}
-            height={800}
-          />
-        </MotionBox>
+        animate={{ y: 15, scale: 0.97 }}
+        transition={{ repeat: Infinity, duration: 2, repeatType: "reverse" }}
+        className={styled.img}
+      >
+        <Image
+          src="/js.svg"
+          width={400}
+          height={400}
+          alt="Launching Illustration"
+        />
+      </MotionBox>
       </div>
+      
     </div>
   );
 };

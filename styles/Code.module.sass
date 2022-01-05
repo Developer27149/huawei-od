@@ -20,8 +20,8 @@
     align-items: center
     color: #fff
     padding: 0 1rem
-    @include media("<=phone")
-         
+    @include media("<=480px")
+      padding-top: 8px
     &>span
       cursor: pointer
     .copy
@@ -32,7 +32,8 @@
     .code
       margin: 0!important
       flex-grow: 1
-      overflow-x: scroll!important   
+      @include media("<=480px")
+        overflow-x: scroll!important
       code        
         font-family: "Fira Code",-apple-system, BlinkMacSystemFont, sans-serif!important
         @include media("<=460px")

@@ -29,7 +29,7 @@ export default function ReplyComment({
     });
   };
 
-  const handleCreateAComment = async () => {
+  const handleCreateAComment = async () => {    
     const { issueNumber, identy } = state;
     const msg =
       /^#(\d+) /.test(state.msg) && state.comments.length >= ~~RegExp.$1

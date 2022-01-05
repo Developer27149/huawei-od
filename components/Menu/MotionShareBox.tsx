@@ -6,7 +6,7 @@ export default function MotionShareBox() {
         style={{
           width: 36,
           height: 36,
-          background: "#99aabb",
+          background: "#eee",
           borderRadius: "50%",
           opacity: 0.2,
           display: "flex",
@@ -14,31 +14,31 @@ export default function MotionShareBox() {
           alignItems: "center",
         }}
         transition={{
-          duration: 3.2,
+          duration: 6,
           repeat: Infinity,
           ease: [0.17, 0.67, 0.83, 0.67],
         }}
         animate={{
-          opacity: [0.2, 0.8, 0.2],
-          scale: [0.9, 1.1, 0.9],
+          opacity: [0.4, 0.8, 0.4],
+          scale: [0.95, 1, 0.95],
         }}
       >
         <MotionBox
           style={{
-            width: 28,
-            height: 28,
-            background: "#eee",
+            width: 29,
+            height: 29,
+            background: "#fff",
             borderRadius: "50%",
             opacity: 0.2,
           }}
           transition={{
-            duration: 3.2,
+            duration: 6,
             repeat: Infinity,
             ease: [0.17, 0.67, 0.83, 0.67],
           }}
           animate={{
-            opacity: [0.2, 0.8, 0.2],
-            scale: [0.9, 1.1, 0.9],
+            opacity: [0.4, 0.8, 0.4],
+            scale: [0.95, 1, 0.95],
           }}
         ></MotionBox>
       </MotionBox>

@@ -27,7 +27,7 @@ export default function Menu(props: { children: ReactChild }) {
     document.addEventListener("resize", handleResize);
     // change show items
     const handleModifyShowItems = () => {
-      setShowItems(false);
+      setShowItems(false);      
     };
     document.addEventListener("click", handleModifyShowItems);
     return () => {

@@ -25,7 +25,7 @@ const Heading = (props: {text: string, delay: number}) => {
 export default function Logo() {
   return (
     <div className={sd.logo}>
-      <img src="/favicon.svg" />
+      <img src="/logo.svg" />
         <Link href="/">
         <div        
          style={{

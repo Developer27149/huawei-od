@@ -1,10 +1,10 @@
 import fs from "fs";
 import { join } from "path";
 import matter from "gray-matter";
-import { IArticleData, INavbar, reactionsOptions } from "interfaces";
+import { IArticleData, INavbar } from "interfaces";
 import { convertTextToValidId } from "./index";
 import { Octokit } from "@octokit/rest";
-import { owner,repo } from "./public";
+import { owner, repo } from "./public";
 
 const fsPromise = fs.promises;
 const articleDir = join(process.cwd(), "articles");
@@ -31,6 +31,32 @@ export async function getArticleById(id: string): Promise<IArticleData> {
     tags,
     navArr: createArticleNavbarTree(content),
   };
+}
+
+export async function getAllTags() {
+  const articlePaths = await fsPromise.readdir(articleDir);
+
+  const tasks = articlePaths
+    .filter((i) => i.endsWith(".md"))
+    .map((i) => fsPromise.readFile(join(articleDir, i), "utf-8"));
+  
+  const contents = await Promise.all(tasks);
+
+  
+  const tagsRecord: { [tag: string]: string[] } = {};
+  contents.forEach((i) => {
+    const { data } = matter(i);
+    const title: string = data.title;
+    const tags: string[] = data.tags;    
+    tags.forEach((tag) => {
+      if (tagsRecord[tag]) {
+        tagsRecord[tag].push(title);
+      } else {
+        tagsRecord[tag] = [title];
+      }
+    });
+  });
+  return tagsRecord;
 }
 
 const createArticleNavbarTree = (content: string) => {
@@ -92,7 +118,7 @@ const searchIssueNumberByKeyword = async (keyword: string, api: Octokit) => {
 };
 
 export const getCommentsByIdAndIssueNumber = async (id: string) => {
-  const api = new Octokit({auth: process.env.GITHUB_TOKEN});
+  const api = new Octokit({ auth: process.env.GITHUB_TOKEN });
   const result = await searchIssueNumberByKeyword(id, api);
   try {
     if (result.number) {
@@ -104,34 +130,39 @@ export const getCommentsByIdAndIssueNumber = async (id: string) => {
         issue_number: result.number,
         since: `${new Date(
           new Date().getTime() - 1000 * 60 * 60 * 24 * 365 * 2
-        )}`,        
+        )}`,
       });
       const data = resp.data;
-      const _res = data.map(i => {
+      const _res = data.map((i) => {
         return {
           username: i.user?.login ?? "神秘人",
           avatarUrl: i.user?.avatar_url ?? "",
           content: i.body ?? "",
           datetime: i.created_at ?? "",
           reactions: i.reactions,
-          id: i.id ?? 0
-        }
+          id: i.id ?? 0,
+        };
       });
-      const _result = _res.filter(i => !Object.values(i).some(i => i === "")).reverse();
+      const _result = _res
+        .filter((i) => !Object.values(i).some((i) => i === ""))
+        .reverse();
       _result.sort((prev, next) => {
         const a = next.reactions?.total_count ?? 0;
         const b = prev.reactions?.total_count ?? 0;
-        return a === b ? (new Date(next.datetime).getTime() - new Date(prev.datetime).getTime()) : a - b;
-      })
+        return a === b
+          ? new Date(next.datetime).getTime() -
+              new Date(prev.datetime).getTime()
+          : a - b;
+      });
       return {
         comments: _result,
-        issueNumber: result.number
+        issueNumber: result.number,
       };
     } else {
-      return {comments: []};
+      return { comments: [] };
     }
   } catch (error) {
     console.log(error);
-    return {comments: []};
+    return { comments: [] };
   }
 };

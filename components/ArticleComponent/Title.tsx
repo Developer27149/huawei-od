@@ -10,7 +10,11 @@ export default function Title({title, tags}: {title: string, tags: string[]}) {
       <h1>
         {title}
       </h1>
-      <TagGroups tags={tags}/>
+      <TagGroups tags={tags.map(tag => {
+        return {
+          name: tag,
+        }
+      })}/>
     </MotionBox>
   )
 }

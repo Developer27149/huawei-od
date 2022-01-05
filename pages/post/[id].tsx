@@ -1,3 +1,5 @@
+import Head from "next/head";
+import { useRef } from "react";
 import Markdown from "markdown-to-jsx";
 import {
   getAllArticleIdArr,
@@ -7,50 +9,62 @@ import {
 import Code from "components/ArticleComponent/Code";
 import sd from "styles/Article.module.sass";
 import { convertTextToValidId } from "libs";
-import ArticleNav from "components/ArticleComponent/ArticleNav";
 import Menu from "components/Menu";
 import ThemeBtn from "components/Menu/ThemeBtn";
 import ArticleNavBtn from "components/Menu/ArticleNavBtn";
 import Title from "components/ArticleComponent/Title";
-import CustomComment from "components/Comment";
-import {owner, repo} from "libs/public"
-import { IProps } from 'interfaces/index';
+// import CustomComment from "components/Comment";
+import { owner, repo } from "libs/public";
+import { IProps } from "interfaces/index";
 import { CommentProvider } from "contexts/comment/context";
 import { useReducer } from "react";
-import { commentReducer } from 'contexts/comment/reducer';
-import { useSession } from 'next-auth/react';
+import { commentReducer } from "contexts/comment/reducer";
+import { useSession } from "next-auth/react";
 import CommentBtn from "components/Menu/CommentBtn";
-
-
+import dynamic from "next/dynamic";
+import { useGlobalContext } from "contexts/global";
+const ArticleNav = dynamic(
+  () => import("components/ArticleComponent/ArticleNav")
+);
+const CustomComment = dynamic(() => import("components/Comment"));
 type Params = {
   params: {
     id: string;
   };
 };
 
-
 const Post = (props: IProps) => {
   const {
     articleData: { title, tags = [], content, navArr },
     comments,
-    repo, owner, id,issueNumber
+    repo,
+    owner,
+    id,
+    issueNumber,
   } = props;
+  const articleBoxRef = useRef<HTMLDivElement>(null);
 
   const session = useSession();
+  const globalContext = useGlobalContext();
   // eslint-nextline-disable
   const [state, dispatch] = useReducer(commentReducer, {
     identy: {
       owner,
       repo,
-      token: session.data?.accessToken || ""
+      token: session.data?.accessToken || "",
     },
     comments,
     pathId: id,
-    issueNumber
-  })
+    issueNumber,
+  });
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content="华为 OJ JavaScript 题解" />
+        <link rel="icon" href="/logo.svg" />
+      </Head>
       <Menu>
         <>
           <ThemeBtn />
@@ -58,9 +72,9 @@ const Post = (props: IProps) => {
           <CommentBtn />
         </>
       </Menu>
-      <div className={sd.atricle}>
+      <div className={sd.atricle} ref={articleBoxRef}>
         <Title title={title} tags={tags} />
-        <ArticleNav navArr={navArr} />
+        {globalContext.state.showArticleNav && <ArticleNav navArr={navArr} />}
         <Markdown
           className={sd.content}
           options={{
@@ -74,9 +88,9 @@ const Post = (props: IProps) => {
         >
           {content}
         </Markdown>
-        <CommentProvider value={{state, dispatch}}>
-          <CustomComment />
-        </CommentProvider>
+        <CommentProvider value={{ state, dispatch }}>
+            <CustomComment />
+          </CommentProvider>
       </div>
     </>
   );
@@ -87,7 +101,9 @@ export default Post;
 export async function getStaticProps({ params }: Params) {
   const { id } = params;
   const articleData = await getArticleById(id);
-  const {comments, issueNumber = null} = await getCommentsByIdAndIssueNumber(`key${id}`);
+  const { comments, issueNumber = null } = await getCommentsByIdAndIssueNumber(
+    `key${id}`
+  );
   return {
     props: {
       articleData,
