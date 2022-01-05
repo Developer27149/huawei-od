@@ -37,19 +37,19 @@ export default function CustomTag({
             padding: '0 10px'
           }}
           icon={
-            <Avatar
-              style={{
-                backgroundColor: "#e5b3b3",
-                width: "12px",
-                height: "12px",
-                fontSize: "14px",
-                position: 'relative',
-                bottom: '2px',
-                opacity: '0.5'
-              }}
-            >
-              {count}
-            </Avatar>
+            count ? <Avatar
+            style={{
+              backgroundColor: "#e5b3b3",
+              width: "12px",
+              height: "12px",
+              fontSize: "14px",
+              position: 'relative',
+              bottom: '2px',
+              opacity: '0.5'
+            }}
+          >
+            {count}
+          </Avatar> : null
           }
           color={color}
         >

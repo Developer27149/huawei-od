@@ -2,7 +2,7 @@ import { Input, Message } from "@arco-design/web-react";
 import { useState } from "react";
 import { IconCode } from "@arco-design/web-react/icon";
 import { useRouter } from "next/router";
-import { IconFaceSmileFill } from '@arco-design/web-react/icon';
+import { IconFaceSmileFill,IconClose } from '@arco-design/web-react/icon';
 
 export default function QuickTo() {
   const router = useRouter();
@@ -18,6 +18,7 @@ export default function QuickTo() {
   };
   const handleChange = (e: string) => {
     if (!/^\d+$/.test(e) && e !== "") {
+      Message.error({ icon: <IconClose />, content: '题号必须是数字' ,position: "bottom"})
       setIsError(true);
     } else {
       setIsError(false);

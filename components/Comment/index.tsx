@@ -44,6 +44,12 @@ export default function CustomComment() {
     setTimeout(() => {
       setIsShow(true);
     }, 2000);
+    return () => {
+      dispatch({
+        type: "comment",
+        payload: false,
+      });
+    }
   }, []);
 
   return (
