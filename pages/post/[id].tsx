@@ -15,7 +15,7 @@ import ArticleNavBtn from "components/Menu/ArticleNavBtn";
 import Title from "components/ArticleComponent/Title";
 import { owner, repo } from "libs/public";
 import { IProps } from "interfaces/index";
-import { CommentProvider, IInitState } from "contexts/comment/context";
+// import { CommentProvider, IInitState } from "contexts/comment/context";
 import { useReducer } from "react";
 import { commentReducer } from "contexts/comment/reducer";
 import { useSession } from "next-auth/react";
